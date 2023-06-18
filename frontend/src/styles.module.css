@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.mainPageBackground {
+  background-color: rgb(17, 17, 17);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.mainContent {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.pageLogo {
+  flex: 1;
+  max-width: 50%;
+  margin: 30px;
+  height: 450px;
+}
+
+.verticalSeparator {
+  width: 1px;
+  height: 100%;
+  background-color: rgb(54, 202, 239);
+  margin: 0 20px; /* Adjust the margin as per your design preference */
+}
+
+.signInContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 450px;
+  color: white;
+}
+
+.welcomeText,
+.moreText {
+  text-align: center;
+  margin-right: 15px;
+  font-family: "Kanit", sans-serif;
+}
+
+.signInButton {
+  margin-top: 65px !important;
+  margin-bottom: 30px !important;
+  background-color: rgba(63, 217, 227, 0.714) !important;
+  color: rgb(4, 4, 62) !important;
+  width: 10vw;
+  height: 8vh;
+  font-family: "Kanit", sans-serif;
+}
+
+.signInButton:hover {
+  background-color: rgba(8, 239, 255, 0.5) !important;
+}
+
+.navBarContainer {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 30px 0px 20px 0px;
+  margin-bottom: 20px;
+}
+
+.navBarLogo {
+  height: 65px;
+  width: 110px;
+}
+
+.horizontalSeparator {
+  width: 100vw;
+  background-color: rgb(54, 202, 239);
+  height: 1px;
+  margin-bottom: 50px;
+}
+
+.navButtons {
+  font-family: "Kanit", sans-serif !important;
+  background-color: none !important;
+  color: white !important;
+  width: 250px !important;
+}
+
+.navButtons:hover {
+  background-color: rgba(10, 219, 234, 0.5)!important;
+}
