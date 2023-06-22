@@ -1,16 +1,12 @@
 import pageLogo from "../resources/voiceveil-logo-zip-file/png/logo-no-background.png";
 import styles from "../styles.module.css";
 import Button from "@mui/material-next/Button";
-import Background from "./ParticlesBackground";
-import Navbar from "./NavigationBar";
+import { Link } from "react-router-dom";
 
 function Homepage() {
   return (
-    <div className={styles.mainPageBackground}>
-      <Background />
-      <Navbar />
-      <div className={styles.horizontalSeparator}></div>
-      <div className={styles.mainContent}>
+    <div className={styles.homePageBackground}>
+      <div className={styles.homeMainContent}>
         <img src={pageLogo} alt="Page Logo" className={styles.pageLogo} />
         <div className={styles.verticalSeparator}></div>
         <div className={styles.signInContainer}>
@@ -25,12 +21,14 @@ function Homepage() {
             size="large"
             variant="elevated"
             className={styles.signInButton}
+            component={Link}
+            to="/login"
           >
             Sign In
           </Button>
           <h3 className={styles.moreText}>
-            Or, if you want to read and know more about us, please scroll down
-            below! :)
+            Or, if you want to read and know more about us, please click the
+            know-more button in the Navigation Bar :)
           </h3>
         </div>
       </div>
