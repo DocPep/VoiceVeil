@@ -1,248 +1,241 @@
-import react from "react";
 import styles from "../styles.module.css";
-import PropTypes from "prop-types";
-import { useTheme } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
-import SwipeableViews from "react-swipeable-views";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-      className={styles.loginBoxContainer}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>
-            <div
-              style={
-                index === 0
-                  ? {
-                      display: "flex",
-                      justifyContent: "center",
-                      color: "#60D38D",
-                      fontSize: "32px",
-                    }
-                  : {
-                      display: "flex",
-                      justifyContent: "center",
-                      color: "#60D38D",
-                      fontSize: "32px",
-                      marginTop: "-30px",
-                    }
-              }
-            >
-              {index === 0 ? "LOGIN" : "REGISTER"}
-            </div>
-            {children}
-          </Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
-  };
-}
+import react from "react";
+import axios from "axios";
 
 function SignInPage() {
-  const theme = useTheme();
-  const [value, setValue] = react.useState(0);
+  const [logInPrompt, setLogInPrompt] = react.useState("");
+  const [registerPrompt, setRegisterPrompt] = react.useState("");
+  const [showLogin, setShowLogin] = react.useState(true);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const showLoginScreen = () => {
+    if (!showLogin) {
+      document.getElementById("registerHeader").style.color = "#9dc4eb";
+      document.getElementById("loginHeader").style.color = "white";
+      document.getElementById("loginFormContainer").style.display = "flex";
+      document.getElementById("registerFormContainer").style.display = "none";
+      setShowLogin(true);
+    }
   };
 
-  const handleChangeIndex = (index) => {
-    setValue(index);
+  const showRegisterScreen = () => {
+    if (showLogin) {
+      document.getElementById("registerHeader").style.color = "white";
+      document.getElementById("loginHeader").style.color = "#9dc4eb";
+        document.getElementById("loginFormContainer").style.display = "none";
+        document.getElementById("registerFormContainer").style.display = "flex";
+      setShowLogin(false);
+    }
   };
 
+  const logInUser = async () => {
+    const username = document.getElementById("login-userid-field").value;
+    const password = document.getElementById("login-password-field").value;
+    if (!username) {
+      setLogInPrompt("Please enter a username");
+    } else if (!password) {
+      setLogInPrompt("Please enter a password");
+    } else {
+      const response = await axios.post("http://localhost:5000/user/login", {
+        username: username,
+        password: password,
+      });
+      setLogInPrompt(response.data);
+      console.log(response.data);
+    }
+  };
+
+  const registerUser = async () => {
+    const username = document.getElementById("register-userid-field").value;
+    const email = document.getElementById("register-email-field").value;
+    const password = document.getElementById("register-password-field").value;
+
+    if (!username) {
+      setRegisterPrompt("Please enter a username");
+    } else if (!password) {
+      setRegisterPrompt("Please enter a password");
+    } else if (!email) {
+      setRegisterPrompt("Please enter an email");
+    } else {
+      const response = await axios.post("http://localhost:5000/user/register", {
+        username: username,
+        email: email,
+        password: password,
+      });
+      setRegisterPrompt(response.data);
+      console.log(response.data);
+    }
+  };
   return (
-    <div className={styles.signInPageContainer}>
-      <Box sx={{ bgcolor: "#0a2a35", width: 1200, height: 500 }}>
-        <AppBar position="static">
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="secondary"
-            textColor="inherit"
-            variant="fullWidth"
-            aria-label="full width tabs example"
-          >
-            <Tab label="Log In" {...a11yProps(0)} />
-            <Tab label="Register" {...a11yProps(1)} />
-          </Tabs>
-        </AppBar>
-        <SwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={value}
-          onChangeIndex={handleChangeIndex}
+    <div className={styles.SignInMainContainer}>
+      <div className={styles.SignInHeaderContainer}>
+        <div
+          id="loginHeader"
+          className={styles.loginHeader}
+          onClick={showLoginScreen}
         >
-          <TabPanel
-            value={value}
-            index={0}
-            dir={theme.direction}
-            className={styles.loginBoxContainer}
-          >
-            <TextField
-              required
-              id="userid-field"
-              label="User ID"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#77F877", // Border color when not in focus
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "green", // Border color on hover
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "yellow", // Border color when in focus
-                  },
+          LOG IN
+        </div>
+        <div
+          id="registerHeader"
+          className={styles.registerHeader}
+          onClick={showRegisterScreen}
+        >
+          REGISTER
+        </div>
+      </div>
+      <div className={styles.SignInFormContainer}>
+        <div id="loginFormContainer" className={styles.logInFormContainer}>
+          <div className={styles.loginHeading}>LOGIN</div>
+          <TextField
+            required
+            id="login-userid-field"
+            label="User ID"
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "#77F877", // Border color when not in focus
                 },
-                display: "block",
-              }}
-              InputLabelProps={{
-                style: { color: "orange" },
-              }}
-              InputProps={{
-                style: { color: "lightgreen" },
-              }}
-              className={styles.loginTextField}
-            />
-            <TextField
-              required
-              id="password-field"
-              label="Password"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#77F877", // Border color when not in focus
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "green", // Border color on hover
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "yellow", // Border color when in focus
-                  },
+                "&:hover fieldset": {
+                  borderColor: "green", // Border color on hover
                 },
-                display: "block",
-              }}
-              InputLabelProps={{
-                style: { color: "orange" },
-              }}
-              InputProps={{
-                style: { color: "lightgreen" },
-              }}
-              className={styles.loginTextField}
-            />
-            <Button className={styles.loginButton}>Submit</Button>
-          </TabPanel>
-          <TabPanel value={value} index={1} dir={theme.direction}>
-            <TextField
-              required
-              id="userid-field"
-              label="User ID"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#77F877", // Border color when not in focus
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "green", // Border color on hover
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "yellow", // Border color when in focus
-                  },
+                "&.Mui-focused fieldset": {
+                  borderColor: "yellow", // Border color when in focus
                 },
-                display: "block",
-              }}
-              InputLabelProps={{
-                style: { color: "orange" },
-              }}
-              InputProps={{
-                style: { color: "lightgreen" },
-              }}
-              className={styles.registerTextField}
-            />
-            <TextField
-              required
-              id="email-field"
-              label="Email Address"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#77F877", // Border color when not in focus
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "green", // Border color on hover
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "yellow", // Border color when in focus
-                  },
+              },
+              display: "block",
+            }}
+            InputLabelProps={{
+              style: { color: "orange" },
+            }}
+            InputProps={{
+              style: { color: "lightgreen" },
+            }}
+            className={styles.loginTextField}
+          />
+          <TextField
+            required
+            id="login-password-field"
+            type="password"
+            label="Password"
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "#77F877", // Border color when not in focus
                 },
-                display: "block",
-              }}
-              InputLabelProps={{
-                style: { color: "orange" },
-              }}
-              InputProps={{
-                style: { color: "lightgreen" },
-              }}
-              className={styles.registerTextField}
-            />
-            <TextField
-              required
-              id="password-field"
-              label="Password"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#77F877", // Border color when not in focus
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "green", // Border color on hover
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "yellow", // Border color when in focus
-                  },
+                "&:hover fieldset": {
+                  borderColor: "green", // Border color on hover
                 },
-                display: "block",
-              }}
-              InputLabelProps={{
-                style: { color: "orange" },
-              }}
-              InputProps={{
-                style: { color: "lightgreen" },
-              }}
-              className={styles.registerTextField}
-            />
-            <Button className={styles.registerButton}>Submit</Button>
-          </TabPanel>
-        </SwipeableViews>
-      </Box>
+                "&.Mui-focused fieldset": {
+                  borderColor: "yellow", // Border color when in focus
+                },
+              },
+              display: "block",
+            }}
+            InputLabelProps={{
+              style: { color: "orange" },
+            }}
+            InputProps={{
+              style: { color: "lightgreen" },
+            }}
+            className={styles.loginTextField}
+          />
+          <div className={styles.LoginPromptTextField}>{logInPrompt}</div>
+          <Button className={styles.loginButton} onClick={logInUser}>
+            Submit
+          </Button>
+        </div>
+        <div
+          id="registerFormContainer"
+          className={styles.registerFormContainer}
+        >
+          <div className={styles.registerHeading}>REGISTER</div>
+          <TextField
+            required
+            id="register-userid-field"
+            label="User ID"
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "#77F877", // Border color when not in focus
+                },
+                "&:hover fieldset": {
+                  borderColor: "green", // Border color on hover
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "yellow", // Border color when in focus
+                },
+              },
+              display: "block",
+            }}
+            InputLabelProps={{
+              style: { color: "orange" },
+            }}
+            InputProps={{
+              style: { color: "lightgreen" },
+            }}
+            className={styles.registerTextField}
+          />
+          <TextField
+            required
+            id="register-email-field"
+            label="Email Address"
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "#77F877", // Border color when not in focus
+                },
+                "&:hover fieldset": {
+                  borderColor: "green", // Border color on hover
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "yellow", // Border color when in focus
+                },
+              },
+              display: "block",
+            }}
+            InputLabelProps={{
+              style: { color: "orange" },
+            }}
+            InputProps={{
+              style: { color: "lightgreen" },
+            }}
+            className={styles.registerTextField}
+          />
+          <TextField
+            required
+            id="register-password-field"
+            type="password"
+            label="Password"
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "#77F877", // Border color when not in focus
+                },
+                "&:hover fieldset": {
+                  borderColor: "green", // Border color on hover
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "yellow", // Border color when in focus
+                },
+              },
+              display: "block",
+            }}
+            InputLabelProps={{
+              style: { color: "orange" },
+            }}
+            InputProps={{
+              style: { color: "lightgreen" },
+            }}
+            className={styles.registerTextField}
+          />
+          <div className={styles.registerPromptTextField}>{registerPrompt}</div>
+          <Button className={styles.registerButton} onClick={registerUser}>
+            Submit
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

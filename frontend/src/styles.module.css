@@ -110,7 +110,82 @@
   background-color: rgba(10, 219, 234, 0.5) !important;
 }
 
-.loginBoxContainer {
+.SignInMainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: space-between;
+  background-color: #0a2a35;
+  width: 80vw;
+  height: 70vh;
+}
+
+.SignInHeaderContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: space-between;
+  background-color: #0a2a35;
+  width: 80vw;
+  height: 50px;
+}
+
+.loginHeader,
+.registerHeader {
+  background-color: #1976d2;
+  width: 50%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  color: white;
+  z-index: 20;
+  cursor: pointer;
+}
+
+.registerHeader {
+  color: #9dc4eb;
+}
+
+.SignInFormContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(70vh - 50px);
+}
+
+.logInFormContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(70vh - 50px);
+  margin-top: 60px;
+}
+
+.registerFormContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(70vh - 50px);
+  margin-top: 40px;
+  display: none;
+}
+
+.loginHeading,
+.registerHeading {
+  display: flex;
+  justify-content: center;
+  color: #60d38d;
+  font-size: 32px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  margin-bottom: 20px;
+}
+
+.signInBoxContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -118,11 +193,18 @@
   margin-top: 50px;
 }
 
-.centeredTabPanel {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.loginTextField,
+.registerTextField {
+  margin: 15px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  position: relative !important;
+}
+
+.registerTextField {
+  margin: 10px !important;
 }
 
 .loginButton,
@@ -135,7 +217,7 @@
   background-color: rgb(8, 3, 76) !important;
   color: rgb(0, 255, 98) !important;
   width: 15vw !important;
-  margin-top: 35px !important;
+  margin-top: 22px !important;
 }
 
 .loginButton:hover,
@@ -144,7 +226,19 @@
   color: yellowgreen !important;
 }
 
-.loginTextField,
-.registerTextField {
-  margin: 25px !important;
+.LoginPromptTextField {
+  color: yellow;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.registerPromptTextField {
+  color: yellow;
+  margin-top: 10px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.loginButton {
+  margin-top: 12px !important;
 }

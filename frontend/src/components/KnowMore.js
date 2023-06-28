@@ -1,5 +1,10 @@
+
 function KnowMore() {
-  return <div>KNOW MORE PAGE</div>;
+  return (
+    <div>
+      <h1>Know More</h1>
+    </div>
+  );
 }
 
 export default KnowMore;
