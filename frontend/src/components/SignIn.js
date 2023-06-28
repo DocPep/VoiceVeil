@@ -8,13 +8,39 @@ function SignInPage() {
   const [logInPrompt, setLogInPrompt] = react.useState("");
   const [registerPrompt, setRegisterPrompt] = react.useState("");
   const [showLogin, setShowLogin] = react.useState(true);
+  const [loginUserNameValue, setLoginUserNameValue] = react.useState("");
+  const [loginPassValue, setLoginPassValue] = react.useState("");
+  const [registerUserNameValue, setRegisterUserNameValue] = react.useState("");
+  const [registerPassValue, setRegisterPassValue] = react.useState("");
+  const [registerEmailValue, setRegisterEmailValue] = react.useState("");
+
+  const handleLoginUserNameChange = (event) => {
+    setLoginUserNameValue(event.target.value);
+  };
+  const handleLoginPassChange = (event) => {
+    setLoginPassValue(event.target.value);
+  };
+  const handleRegisterUserNameChange = (event) => {
+    setRegisterUserNameValue(event.target.value);
+  };
+  const handleRegisterPassChange = (event) => {
+    setRegisterPassValue(event.target.value);
+  };
+  const handleRegisterEmailChange = (event) => {
+    setRegisterEmailValue(event.target.value);
+  };
 
   const showLoginScreen = () => {
     if (!showLogin) {
       document.getElementById("registerHeader").style.color = "#9dc4eb";
       document.getElementById("loginHeader").style.color = "white";
-      document.getElementById("loginFormContainer").style.display = "flex";
-      document.getElementById("registerFormContainer").style.display = "none";
+      document.getElementById("loginFormContainer").style.opacity = "1";
+      document.getElementById("registerFormContainer").style.opacity = "0";
+      document.getElementById("loginFormContainer").style.zIndex = "20";
+      document.getElementById("registerFormContainer").style.zIndex = "10";
+      setLoginPassValue("");
+      setLoginUserNameValue("");
+      setRegisterPrompt("");
       setShowLogin(true);
     }
   };
@@ -23,8 +49,14 @@ function SignInPage() {
     if (showLogin) {
       document.getElementById("registerHeader").style.color = "white";
       document.getElementById("loginHeader").style.color = "#9dc4eb";
-        document.getElementById("loginFormContainer").style.display = "none";
-        document.getElementById("registerFormContainer").style.display = "flex";
+      document.getElementById("loginFormContainer").style.opacity = "0";
+      document.getElementById("registerFormContainer").style.opacity = "1";
+      document.getElementById("loginFormContainer").style.zIndex = "10";
+      document.getElementById("registerFormContainer").style.zIndex = "20";
+      setRegisterEmailValue("");
+      setRegisterPassValue("");
+      setRegisterUserNameValue("");
+      setLogInPrompt("");
       setShowLogin(false);
     }
   };
@@ -42,8 +74,21 @@ function SignInPage() {
         password: password,
       });
       setLogInPrompt(response.data);
-      console.log(response.data);
+      if(response.data === "Login successful! :)") {
+        window.location.href = "http://localhost:3000/home";
+      }
     }
+  };
+
+  const validateUserName = (username) => {
+    const regex = /[a-zA-Z]/g;
+    const matches = username.match(regex);
+    return matches !== null && matches.length >= 4;
+  };
+
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
   };
 
   const registerUser = async () => {
@@ -57,6 +102,12 @@ function SignInPage() {
       setRegisterPrompt("Please enter a password");
     } else if (!email) {
       setRegisterPrompt("Please enter an email");
+    } else if (validateUserName(username) === false) {
+      setRegisterPrompt("Username must contain atleast 4 english characters");
+    } else if (validateEmail(email) === false) {
+      setRegisterPrompt("Please enter a valid email");
+    } else if (password.length < 8) {
+      setRegisterPrompt("Password must be atleast 8 characters");
     } else {
       const response = await axios.post("http://localhost:5000/user/register", {
         username: username,
@@ -64,7 +115,9 @@ function SignInPage() {
         password: password,
       });
       setRegisterPrompt(response.data);
-      console.log(response.data);
+      if(response.data === "User succesfully registered! Please login with the registered details :)") {
+        setTimeout(showLoginScreen, 3000);
+      }
     }
   };
   return (
@@ -92,6 +145,8 @@ function SignInPage() {
             required
             id="login-userid-field"
             label="User ID"
+            value={loginUserNameValue}
+            onChange={handleLoginUserNameChange}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
@@ -108,6 +163,7 @@ function SignInPage() {
             }}
             InputLabelProps={{
               style: { color: "orange" },
+              shrink: loginUserNameValue!== ""
             }}
             InputProps={{
               style: { color: "lightgreen" },
@@ -119,6 +175,8 @@ function SignInPage() {
             id="login-password-field"
             type="password"
             label="Password"
+            value={loginPassValue}
+            onChange={handleLoginPassChange}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
@@ -135,6 +193,7 @@ function SignInPage() {
             }}
             InputLabelProps={{
               style: { color: "orange" },
+              shrink: loginPassValue!== ""
             }}
             InputProps={{
               style: { color: "lightgreen" },
@@ -155,6 +214,8 @@ function SignInPage() {
             required
             id="register-userid-field"
             label="User ID"
+            value={registerUserNameValue}
+            onChange={handleRegisterUserNameChange}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
@@ -171,6 +232,7 @@ function SignInPage() {
             }}
             InputLabelProps={{
               style: { color: "orange" },
+              shrink: registerUserNameValue!== ""
             }}
             InputProps={{
               style: { color: "lightgreen" },
@@ -181,6 +243,8 @@ function SignInPage() {
             required
             id="register-email-field"
             label="Email Address"
+            value={registerEmailValue}
+            onChange={handleRegisterEmailChange}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
@@ -197,6 +261,7 @@ function SignInPage() {
             }}
             InputLabelProps={{
               style: { color: "orange" },
+              shrink: registerEmailValue!== ""
             }}
             InputProps={{
               style: { color: "lightgreen" },
@@ -208,6 +273,8 @@ function SignInPage() {
             id="register-password-field"
             type="password"
             label="Password"
+            value={registerPassValue}
+            onChange={handleRegisterPassChange}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
@@ -224,6 +291,7 @@ function SignInPage() {
             }}
             InputLabelProps={{
               style: { color: "orange" },
+              shrink: registerPassValue !== ""
             }}
             InputProps={{
               style: { color: "lightgreen" },
