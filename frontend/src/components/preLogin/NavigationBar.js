@@ -1,5 +1,5 @@
-import Navbarlogo from "../resources/voiceveil-logo-zip-file/png/navbar-logo.png";
-import styles from "../styles.module.css";
+import Navbarlogo from "../../resources/voiceveil-logo-zip-file/png/navbar-logo.png";
+import styles from "../../styles.module.css";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 

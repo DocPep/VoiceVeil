@@ -1,10 +1,10 @@
-import styles from "../styles.module.css";
+import styles from "../../styles.module.css";
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import react from "react";
 import axios from "axios";
 
-function SignInPage() {
+function SignInPage(props) {
   const [logInPrompt, setLogInPrompt] = react.useState("");
   const [registerPrompt, setRegisterPrompt] = react.useState("");
   const [showLogin, setShowLogin] = react.useState(true);
@@ -75,7 +75,9 @@ function SignInPage() {
       });
       setLogInPrompt(response.data);
       if(response.data === "Login successful! :)") {
-        window.location.href = "http://localhost:3000/home";
+        localStorage.setItem("token", response.data);
+        props.setLoggedIn(true);
+        window.location.href = "/"
       }
     }
   };

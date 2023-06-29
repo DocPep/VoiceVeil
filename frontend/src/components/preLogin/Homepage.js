@@ -1,5 +1,5 @@
-import pageLogo from "../resources/voiceveil-logo-zip-file/png/logo-no-background.png";
-import styles from "../styles.module.css";
+import pageLogo from "../../resources/voiceveil-logo-zip-file/png/logo-no-background.png";
+import styles from "../../styles.module.css";
 import Button from "@mui/material-next/Button";
 import { Link } from "react-router-dom";
 
