@@ -4,6 +4,7 @@ import ExplorePage from "./postLogin/Explore";
 import HomeFeed from "./postLogin/HomeFeed";
 import Account from "./postLogin/UserSettings";
 import NotificationsPage from "./postLogin/Notifications";
+import CreatePost from "./postLogin/CreatePost";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function LoginHome(props) {
@@ -23,6 +24,7 @@ function LoginHome(props) {
           <Route path="/explore" element = {<ExplorePage/>} />
           <Route path={"/account/" + username} element = {<Account username={username}/>} />
           <Route path="/notifications" element = {<NotificationsPage/>} />
+          <Route path="/create-post" element={<CreatePost/>}></Route>
         </Routes>
       </div>
     </Router>

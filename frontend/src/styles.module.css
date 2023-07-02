@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Rubik:wght@300&family=Work+Sans&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Outfit:wght@600&family=Rubik:wght@300&family=Work+Sans&display=swap');
 
 * {
   padding: 0;
@@ -410,4 +410,67 @@
 
 .postsContainer {
   font-family: "Work Sans", sans-serif;
+}
+
+.fadeOut {
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.fadeIn {
+  opacity: 0;
+  animation: fadeInAnimation 0.3s ease-in forwards;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.createPostBackground {
+  overflow-y: scroll !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #090202;
+  height: calc(88vh - 2px);
+  width: 100vw;
+  padding-top: 50px;
+}
+
+.createPostHeading {
+  color: orange;
+  font-family: 'Outfit', sans-serif;
+}
+
+.createPostTextFieldsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.createPostTextFields {
+  margin: 10px !important;
+}
+
+.createPostButtonsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 20vw;
+}
+
+.createPostButtons {
+  background-color: rgb(164, 236, 20) !important;
+  color: brown !important;
+  width: 7vw !important;
+  margin: 20px !important;
 }
