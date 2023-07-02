@@ -38,7 +38,7 @@ function NavBar(props) {
       </Button>
       <Button
         component={Link}
-        to="/account"
+        to={"/account/" + props.username}
         className={styles.postLoginNavButtons}
       >
         Account

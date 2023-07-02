@@ -1,7 +1,8 @@
-import styles from "../../styles.module.css";
 import React from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
+import styles from "../../styles.module.css";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 
 function Account(props) {
   const [username, setUsername] = React.useState("");
@@ -56,49 +57,59 @@ function Account(props) {
           </div>
         ) : (
           <>
-            <div className={styles.accountDetailsUserName}>
-              <b className={styles.usernameTitle}>
-                <h2>Username</h2>
-              </b>
-              <h3 className={styles.actualUserName}>{username ? username : "Fetching data... Please wait"}</h3>
-            </div>
-            <div className={styles.chorusDetails}>
-              <div className={styles.accountDetailsUserChorus}>
-                <div className={styles.chorusHeader}>
-                  <b>
-                    <h3>User's Chorus has</h3>
-                  </b>
+            <div className={styles.accountInfoSocials}>
+              <div className={styles.accountDetialsUsernameAndPhotoHolder}>
+                <div className={styles.accountDetailsUserIconHolder}>
+                  <AccountCircle style={{ fontSize: 100 }} sx={{color: "gray"}}/>
                 </div>
-                <div className={styles.chorusDetailHolder}>
-                  <h1>{chorusCount ? chorusCount : "..."}</h1> <h3>users</h3>
+                <div className={styles.accountDetailsUserNameHolder}>
+                  <h2>{username ? username : "..."}</h2>
                 </div>
-                <Button className={styles.detailsViewButton}>View</Button>
               </div>
-              <div className={styles.accountDetailsChorusTo}>
-                <div className={styles.chorusHeader}>
-                  <b>
-                    <h3>User is part of chorus to</h3>
-                  </b>
+              <div className={styles.chorusOfUserHolder}>
+                <div className={styles.accountDetailText}>
+                  <h3>User's Chorus has</h3>
                 </div>
-                <div className={styles.chorusDetailHolder}>
-                  <h1>{chorusToCount ? chorusToCount : "..."}</h1> <h3>users</h3>
+                <div className={styles.mainAccountDetailValue}>
+                  <h2>{chorusCount >= 0 ? chorusCount : "..."}</h2>
                 </div>
-                <Button className={styles.detailsViewButton}>View</Button>
+                <div className={styles.accountDetailText}>
+                  <h3>Users</h3>
+                </div>
+              </div>
+              <div className={styles.chorusToUsersHolder}>
+                <div className={styles.accountDetailText}>
+                  <h3>User is Chorus to</h3>
+                </div>
+                <div className={styles.mainAccountDetailValue}>
+                  <h2>{chorusToCount >= 0 ? chorusToCount : "..."}</h2>
+                </div>
+                <div className={styles.accountDetailText}>
+                  <h3>Users</h3>
+                </div>
+              </div>
+              <div className={styles.trusteeHolder}>
+                <div className={styles.accountDetailText}>
+                  <h3>User's voice is trusted by</h3>
+                </div>
+                <div className={styles.mainAccountDetailValue}>
+                  <h2>{trusteeCount >= 0 ? trusteeCount : "..."}</h2>
+                </div>
+                <div className={styles.accountDetailText}>
+                  <h3>Users</h3>
+                </div>
               </div>
             </div>
-            <div className={styles.accountDetailsTrustee}>
-              <b className={styles.trusteeTitle}>
-                <h2>This user is trusted by</h2>
-              </b>
-              <div className={styles.actualTrusteeCount}>
-                <h1>{trusteeCount ? trusteeCount : "..."}</h1> <h3> users</h3>{" "}
-              </div>
+            <div className={styles.accountDetailsVerticalSeparator}></div>
+            <div className={styles.moreDetailsViewButtons}>
+              <Button className={styles.detailViewButtons}>View Your Chorus</Button>
+              <Button className={styles.detailViewButtons}>View Who You're Chorus To</Button>
+              <Button className={styles.detailViewButtons}>Account settings</Button>
             </div>
-            <div className={styles.posts}>
-              <h2 className={styles.postHeader}>
-                This user has created {postCount ? postCount : "..."} posts
-              </h2>
-              <Button className={styles.detailsViewButton}>View</Button>
+            <div className={styles.accountDetailsVerticalSeparator}></div>
+            <div className={styles.postSection}>
+              <div className={styles.postHeading}>POSTS</div>
+              <div className={styles.postsContainer}>NO POSTS AS OF NOW :(</div>
             </div>
           </>
         )}

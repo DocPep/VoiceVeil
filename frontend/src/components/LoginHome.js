@@ -21,7 +21,7 @@ function LoginHome(props) {
         <Routes>
           <Route path="/feed" element = {<HomeFeed/>} />
           <Route path="/explore" element = {<ExplorePage/>} />
-          <Route path="/account" element = {<Account username={username}/>} />
+          <Route path={"/account/" + username} element = {<Account username={username}/>} />
           <Route path="/notifications" element = {<NotificationsPage/>} />
         </Routes>
       </div>
