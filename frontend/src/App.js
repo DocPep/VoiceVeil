@@ -1,9 +1,11 @@
 import React from "react";
 import Login from "./components/LoginSide";
+import LoginHome from "./components/LoginHome";
 import styles from "./styles.module.css";
 
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
+
   React.useEffect(() => {
     if (localStorage.getItem("token")) {
       setLoggedIn(true);
@@ -12,7 +14,7 @@ function App() {
 
   return (
     <div className={styles.appHolder}>
-      {loggedIn ? <div>Logged in</div> : <Login setLoggedIn={setLoggedIn} />}
+      {loggedIn ? <LoginHome setLoggedIn={setLoggedIn}/> : <Login setLoggedIn={setLoggedIn} />}
     </div>
   );
 }

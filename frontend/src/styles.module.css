@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Rubik:wght@300&family=Work+Sans&display=swap");
+
 * {
   padding: 0;
   margin: 0;
@@ -248,4 +249,183 @@
 
 .loginButton {
   margin-top: 12px !important;
+}
+
+.postLoginNavContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #0d1117;
+  height: 12vh;
+  width: 100vw;
+  box-shadow: 2px 2px 2px 4px rgb(187, 187, 50);
+  margin-bottom: 2px;
+}
+
+.postLoginNavButtons {
+  font-family: "Rubik", sans-serif !important;
+}
+
+.postLoginNavButtons:hover {
+  background-color: rgba(175, 175, 247, 0.1) !important;
+}
+
+.postLoginNavBarLogoButton {
+  position: absolute !important;
+  left: 20px !important;
+}
+
+.postLoginNavBarLogoButton:hover {
+  background-color: transparent !important;
+}
+
+.postLoginNavBarLogo {
+  height: 7vh !important;
+  width: 6vw !important;
+}
+
+.accountNameAndLogout {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 10px;
+}
+
+.userNameHolder {
+  color: yellowgreen;
+  margin: 7px;
+}
+
+.postLoginHomePageBackground {
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #030303;
+  height: calc(88vh - 2px);
+  width: 100vw;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.smallVerticalSeparator {
+  height: 6vh;
+  width: 2px;
+  background-color: white;
+}
+
+.postVoice {
+  background-color: yellow;
+}
+
+.accountSettingsBackground {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(88vh - 2px);
+  width: 100vw;
+  background-color: #030303;
+}
+
+.accountDetailsContainer {
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 80vh;
+  width: 60vw;
+  background-color: #1a1a1b;
+  color: white;
+}
+
+.accountDetailsUserName {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Work Sans", sans-serif;
+  margin: 25px;
+}
+
+.usernameTitle {
+  padding: 7px;
+}
+
+.accountDetailsUserChorus,
+.accountDetailsChorusTo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.chorusDetails {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 40vw;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.chorusHeader,
+.chorusDetailHolder {
+  font-family: "Work Sans", sans-serif;
+  margin: 5px;
+}
+
+.chorusDetailHolder {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 6.2vw;
+}
+
+.detailsViewButton {
+  background-color: #585861 !important;
+  color: #67e155 !important;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+  margin: 2px !important;
+}
+
+.accountDetailsTrustee {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Work Sans", sans-serif;
+  margin: 25px;
+}
+
+.trusteeTitle {
+  padding: 7px;
+}
+
+.actualTrusteeCount {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 6.2vw; 
+}
+
+.posts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Work Sans", sans-serif;
+  margin-top: 20px;
+}
+
+.postHeader {
+  margin-bottom: 15px;
 }

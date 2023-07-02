@@ -75,9 +75,12 @@ function SignInPage(props) {
       });
       setLogInPrompt(response.data);
       if(response.data === "Login successful! :)") {
-        localStorage.setItem("token", response.data);
+        localStorage.setItem("token", JSON.stringify({
+          "username": username,
+          "loggedIn": "true"
+        }));
         props.setLoggedIn(true);
-        window.location.href = "/"
+        window.location.href = "/feed"
       }
     }
   };
