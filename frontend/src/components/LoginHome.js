@@ -24,7 +24,7 @@ function LoginHome(props) {
           <Route path="/explore" element = {<ExplorePage/>} />
           <Route path={"/account/" + username} element = {<Account username={username}/>} />
           <Route path="/notifications" element = {<NotificationsPage/>} />
-          <Route path="/create-post" element={<CreatePost/>}></Route>
+          <Route path="/create-post" element={<CreatePost username={username}/>}></Route>
         </Routes>
       </div>
     </Router>

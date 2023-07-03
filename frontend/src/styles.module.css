@@ -465,12 +465,28 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 20vw;
+  width: 60vw;
+}
+
+.createPostPrompt {
+  color: orangered;
+  font-family: "Outfit", sans-serif;
 }
 
 .createPostButtons {
   background-color: rgb(164, 236, 20) !important;
   color: brown !important;
-  width: 7vw !important;
+  width: 12vw !important;
   margin: 20px !important;
+}
+
+.postContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #1976d2;
+  color: black;
+  margin: 25px;
+  padding: 25px;
 }
