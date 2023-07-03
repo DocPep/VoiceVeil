@@ -9,7 +9,7 @@ function NavBar(props) {
   };
 
   const logoutUser = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     props.setLoggedIn(false);
     window.location.href = "/";
   };
@@ -26,7 +26,11 @@ function NavBar(props) {
           className={styles.postLoginNavBarLogo}
         />
       </Button>
-      <Button component={Link} to="/feed" className={styles.postLoginNavButtons}>
+      <Button
+        component={Link}
+        to="/feed"
+        className={styles.postLoginNavButtons}
+      >
         Home
       </Button>
       <Button

@@ -14,17 +14,23 @@ function LoginHome(props) {
     const token = JSON.parse(localStorage.getItem("token"));
     setUsername(token.username);
   }, []);
-
   return (
     <Router>
       <div>
-        <NavBar username={username} setLoggedIn={props.setLoggedIn}/>
+        <NavBar username={username} setLoggedIn={props.setLoggedIn} />
         <Routes>
-          <Route path="/feed" element = {<HomeFeed/>} />
-          <Route path="/explore" element = {<ExplorePage/>} />
-          <Route path={"/account/" + username} element = {<Account username={username}/>} />
-          <Route path="/notifications" element = {<NotificationsPage/>} />
-          <Route path="/create-post" element={<CreatePost username={username}/>}></Route>
+          <Route path="/" element={<HomeFeed />} />
+          <Route path="/feed" element={<HomeFeed />} />
+          <Route path="/explore" element={<ExplorePage />} />
+          <Route
+            path={"/account/" + username}
+            element={<Account username={username} />}
+          />
+          <Route path="/notifications" element={<NotificationsPage />} />
+          <Route
+            path="/create-post"
+            element={<CreatePost username={username} />}
+          ></Route>
         </Routes>
       </div>
     </Router>

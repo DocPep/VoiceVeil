@@ -14,7 +14,11 @@ function App() {
 
   return (
     <div className={styles.appHolder}>
-      {loggedIn ? <LoginHome setLoggedIn={setLoggedIn}/> : <Login setLoggedIn={setLoggedIn} />}
+      {loggedIn ? (
+        <LoginHome setLoggedIn={setLoggedIn} />
+      ) : (
+        <Login setLoggedIn={setLoggedIn} />
+      )}
     </div>
   );
 }

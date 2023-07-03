@@ -60,7 +60,10 @@ function Account(props) {
             <div className={styles.accountInfoSocials}>
               <div className={styles.accountDetialsUsernameAndPhotoHolder}>
                 <div className={styles.accountDetailsUserIconHolder}>
-                  <AccountCircle style={{ fontSize: 100 }} sx={{color: "gray"}}/>
+                  <AccountCircle
+                    style={{ fontSize: 100 }}
+                    sx={{ color: "gray" }}
+                  />
                 </div>
                 <div className={styles.accountDetailsUserNameHolder}>
                   <h2>{username ? username : "..."}</h2>
@@ -102,9 +105,15 @@ function Account(props) {
             </div>
             <div className={styles.accountDetailsVerticalSeparator}></div>
             <div className={styles.moreDetailsViewButtons}>
-              <Button className={styles.detailViewButtons}>View Your Chorus</Button>
-              <Button className={styles.detailViewButtons}>View Who You're Chorus To</Button>
-              <Button className={styles.detailViewButtons}>Account settings</Button>
+              <Button className={styles.detailViewButtons}>
+                View Your Chorus
+              </Button>
+              <Button className={styles.detailViewButtons}>
+                View Who You're Chorus To
+              </Button>
+              <Button className={styles.detailViewButtons}>
+                Account settings
+              </Button>
             </div>
             <div className={styles.accountDetailsVerticalSeparator}></div>
             <div className={styles.postSection}>
