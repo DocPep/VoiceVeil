@@ -5,12 +5,14 @@ import TextField from "@mui/material/TextField";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Box, Button } from "@mui/material";
 import axios from "axios";
+import { format } from "date-fns";
 
 function HomeFeed() {
   const navigate = useNavigate();
   const [shouldFadeOut, setShouldFadeOut] = React.useState(false);
   const [feedPosts, setFeedPosts] = React.useState([]);
   const username = JSON.parse(localStorage.getItem("token")).username;
+  const [feedSet, setFeed] = React.useState(false);
 
   const handleTextFieldClick = () => {
     setShouldFadeOut(true);
@@ -30,6 +32,7 @@ function HomeFeed() {
         }
       );
       setFeedPosts(getPosts.data);
+      setFeed(true);
     }
     getFeedPosts(username);
   }, [username]);
@@ -71,21 +74,40 @@ function HomeFeed() {
             onClick={handleTextFieldClick}
           />
         </Box>
-        {feedPosts.length > 0 ? (
-          feedPosts.map((post) => {
-            return (
-              <div className={styles.postContainer}>
-                <div>{post.postTitle}</div>
-                <div>{post.postContent}</div>
-                <div>{post.postTags}</div>
-                <div>{post.postCreator}</div>
-                <div>{post.postDate}</div>
-                <div>{post.likes}</div>
-              </div>
-            );
-          })
+        {feedSet ? (
+          feedPosts.length > 0 ? (
+            feedPosts.map((post) => {
+              return (
+                <div className={styles.postContainer}>
+                  <div className={styles.postTitle}>
+                    <h1>{post.postTitle}</h1>
+                  </div>
+                  <div className={styles.postContent}>
+                    <h3>{post.postContent}</h3>
+                  </div>
+                  <div className={styles.showPostBottomBar}>
+                    <div className={styles.postCreator}>
+                      Voice of: <b>{post.postCreator}</b>
+                    </div>
+                    <div className={styles.postDate}>
+                      {format(new Date(post.postDate), "do-MMMM-yyyy HH:mm:ss")}
+                    </div>
+                  </div>
+                  <div className={styles.postTags}>
+                    Related tags: <b>{post.postTags}</b>
+                  </div>
+                  <div className={styles.likes}>
+                    This post resonated with:{" " + post.likes + " "} users
+                  </div>
+                  <Button className={styles.viewPostButton}>VIEW POST</Button>
+                </div>
+              );
+            })
+          ) : (
+            <div>NO POSTS HERE</div>
+          )
         ) : (
-          <div>NO POSTS HERE</div>
+          <><div className={styles.loadingPostsMessage}>LOADING POSTS PLEASE WAIT...</div></>
         )}
       </div>
     </div>

@@ -8,6 +8,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { Button } from "@mui/material";
 import axios from "axios";
+import { format } from "date-fns";
 
 function ExplorePage() {
   const theme = createTheme({
@@ -179,18 +180,47 @@ function ExplorePage() {
                         <h2>POSTS</h2>
                       </div>
                       <div>
-                        {postResults.map((post) => {
-                          return (
-                            <div className={styles.postContainer}>
-                              <div>{post.postTitle}</div>
-                              <div>{post.postContent}</div>
-                              <div>{post.postTags}</div>
-                              <div>{post.postCreator}</div>
-                              <div>{post.postDate}</div>
-                              <div>{post.likes}</div>
+                        {postResults.length > 0 ? (
+                          postResults.map((post) => {
+                            return (
+                              <div className={styles.postContainer}>
+                                <div className={styles.postTitle}>
+                                  <h1>{post.postTitle}</h1>
+                                </div>
+                                <div className={styles.postContent}>
+                                  <h3>{post.postContent}</h3>
+                                </div>
+                                <div className={styles.showPostBottomBar}>
+                                  <div className={styles.postCreator}>
+                                    Voice of: <b>{post.postCreator}</b>
+                                  </div>
+                                  <div className={styles.postDate}>
+                                    {format(
+                                      new Date(post.postDate),
+                                      "do-MMMM-yyyy HH:mm:ss"
+                                    )}
+                                  </div>
+                                </div>
+                                <div className={styles.postTags}>
+                                  Related tags: <b>{post.postTags}</b>
+                                </div>
+                                <div className={styles.likes}>
+                                  This post resonated with:
+                                  {" " + post.likes + " "} users
+                                </div>
+                                <Button className={styles.viewPostButton}>
+                                  VIEW POST
+                                </Button>
+                              </div>
+                            );
+                          })
+                        ) : (
+                          <>
+                            <div className={styles.noPostsFoundMessage}>
+                              NO MATCHING POSTS FOUND
                             </div>
-                          );
-                        })}
+                          </>
+                        )}
                       </div>
                     </>
                   ) : (
@@ -204,18 +234,47 @@ function ExplorePage() {
                         <h2>TAGS</h2>
                       </div>
                       <div>
-                        {postsWithTagsResults.map((post) => {
-                          return (
-                            <div className={styles.postContainer}>
-                              <div>{post.postTitle}</div>
-                              <div>{post.postContent}</div>
-                              <div>{post.postTags}</div>
-                              <div>{post.postCreator}</div>
-                              <div>{post.postDate}</div>
-                              <div>{post.likes}</div>
+                        {postsWithTagsResults.length > 0 ? (
+                          postsWithTagsResults.map((post) => {
+                            return (
+                              <div className={styles.postContainer}>
+                                <div className={styles.postTitle}>
+                                  <h1>{post.postTitle}</h1>
+                                </div>
+                                <div className={styles.postContent}>
+                                  <h3>{post.postContent}</h3>
+                                </div>
+                                <div className={styles.showPostBottomBar}>
+                                  <div className={styles.postCreator}>
+                                    Voice of: <b>{post.postCreator}</b>
+                                  </div>
+                                  <div className={styles.postDate}>
+                                    {format(
+                                      new Date(post.postDate),
+                                      "do-MMMM-yyyy HH:mm:ss"
+                                    )}
+                                  </div>
+                                </div>
+                                <div className={styles.postTags}>
+                                  Related tags: <b>{post.postTags}</b>
+                                </div>
+                                <div className={styles.likes}>
+                                  This post resonated with:
+                                  {" " + post.likes + " "} users
+                                </div>
+                                <Button className={styles.viewPostButton}>
+                                  VIEW POST
+                                </Button>
+                              </div>
+                            );
+                          })
+                        ) : (
+                          <>
+                            <div className={styles.noPostsFoundMessage}>
+                              NO MATCHING POSTS FOUND
                             </div>
-                          );
-                        })}
+                          </>
+                        )}
                       </div>
                     </>
                   ) : (
@@ -231,8 +290,9 @@ function ExplorePage() {
                       <div>
                         {accountResults.map((account) => {
                           return (
-                            <div className={styles.postContainer}>
-                              <div>{account.userID}</div>
+                            <div className={styles.accountContainer}>
+                              <div className={styles.accountUsername}>{account.userID}</div>
+                              <Button className={styles.viewUserButton}>VIEW USER ACCOUNT</Button>
                             </div>
                           );
                         })}

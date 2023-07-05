@@ -319,7 +319,7 @@
 }
 
 .postVoice {
-  background-color: yellow;
+  background-color: #030303;
 }
 
 .accountSettingsBackground {
@@ -487,10 +487,49 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #1976d2;
+  background-color: #202224;
   color: black;
   margin: 25px;
   padding: 25px;
+  width: 65vw;
+  border-radius: 35px;
+}
+
+.postTitle,
+.postContent,
+.postTags,
+.postCreator,
+.postDate,
+.likes {
+  font-family: "Work Sans", sans-serif;
+  margin: 10px;
+  color: violet;
+}
+
+.viewPost {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 50vw;
+}
+
+.showPostBottomBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.viewPostButton {
+  background-color: orange !important;
+  color: black !important;
+  width: 8vw !important;
+  padding: 7px !important;
+  margin: 10px !important;
+}
+.viewPostButton:hover {
+  background-color: yellow !important;
 }
 
 .explorePageBackground {
@@ -585,4 +624,54 @@
   align-items: center;
   font-family: "Outfit", sans-serif;
   color: yellowgreen;
+}
+
+.loadingPostsMessage {
+  height: 80vh;
+  width: 65vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: yellow;
+  background-color: #202224;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.noPostsFoundMessage {
+  height: 10vh;
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: yellow;
+  background-color: #162535;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 20px;
+}
+
+.accountContainer {
+  height: 10vh;
+  width: 60vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #162535;
+  font-family: "Kanit" !important;
+  margin: 20px;
+  border-radius: 10px;
+}
+
+.accountUsername {
+  margin: 50px;
+  color: olivedrab;
+}
+
+.viewUserButton {
+  margin: 50px !important;
+  color: black !important;
+  background-color: yellow !important;
+  font-family: "Kanit" !important;
 }
