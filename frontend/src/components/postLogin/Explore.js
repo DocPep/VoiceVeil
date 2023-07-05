@@ -42,15 +42,18 @@ function ExplorePage() {
     }
 
     searchList.sort();
-
+    const searchWord = document.getElementById("explore-search-field").value;
     const searchQueryResults = await axios.get(
       "http://localhost:5000/search/explorePage",
       {
         params: {
           searchFor: searchList,
+          searchWord: searchWord,
         },
       }
     );
+
+    console.log(searchQueryResults);
 
     if (searchList.includes("posts")) {
       setPostsSet(true);
@@ -172,19 +175,19 @@ function ExplorePage() {
                 <div>
                   {postsSet ? (
                     <>
-                      <div className={styles.searchTypeHeading}><h2>POSTS</h2></div>
+                      <div className={styles.searchTypeHeading}>
+                        <h2>POSTS</h2>
+                      </div>
                       <div>
                         {postResults.map((post) => {
                           return (
                             <div className={styles.postContainer}>
-                              <div>{post.title}</div>
-                              <div>{post.content}</div>
-                              <div>{post.tags}</div>
+                              <div>{post.postTitle}</div>
+                              <div>{post.postContent}</div>
+                              <div>{post.postTags}</div>
                               <div>{post.postCreator}</div>
-                              <div>{post.dateOfCreation}</div>
-                              <div>{post.likesCount}</div>
-                              <div>{post.commentsCount}</div>
-                              <div>{post.link}</div>
+                              <div>{post.postDate}</div>
+                              <div>{post.likes}</div>
                             </div>
                           );
                         })}
@@ -197,19 +200,19 @@ function ExplorePage() {
                 <div>
                   {tagsSet ? (
                     <>
-                      <div className={styles.searchTypeHeading}><h2>TAGS</h2></div>
+                      <div className={styles.searchTypeHeading}>
+                        <h2>TAGS</h2>
+                      </div>
                       <div>
                         {postsWithTagsResults.map((post) => {
                           return (
                             <div className={styles.postContainer}>
-                              <div>{post.title}</div>
-                              <div>{post.content}</div>
-                              <div>{post.tags}</div>
+                              <div>{post.postTitle}</div>
+                              <div>{post.postContent}</div>
+                              <div>{post.postTags}</div>
                               <div>{post.postCreator}</div>
-                              <div>{post.dateOfCreation}</div>
-                              <div>{post.likesCount}</div>
-                              <div>{post.commentsCount}</div>
-                              <div>{post.link}</div>
+                              <div>{post.postDate}</div>
+                              <div>{post.likes}</div>
                             </div>
                           );
                         })}
@@ -222,19 +225,14 @@ function ExplorePage() {
                 <div>
                   {accountsSet ? (
                     <>
-                      <div className={styles.searchTypeHeading}><h2>ACCOUNTS</h2></div>
+                      <div className={styles.searchTypeHeading}>
+                        <h2>ACCOUNTS</h2>
+                      </div>
                       <div>
-                        {accountResults.map((post) => {
+                        {accountResults.map((account) => {
                           return (
                             <div className={styles.postContainer}>
-                              <div>{post.title}</div>
-                              <div>{post.content}</div>
-                              <div>{post.tags}</div>
-                              <div>{post.postCreator}</div>
-                              <div>{post.dateOfCreation}</div>
-                              <div>{post.likesCount}</div>
-                              <div>{post.commentsCount}</div>
-                              <div>{post.link}</div>
+                              <div>{account.userID}</div>
                             </div>
                           );
                         })}

@@ -18,33 +18,64 @@ const client = new MongoClient(MONOGODB_URL, {
 const searchControl = {
   searchQuery: async (req, res) => {
     const reqBody = req.query.searchFor;
+    const searchWord = req.query.searchWord;
     const response = {};
-    for (let things of reqBody) {
-      response[things] = [
-        {
-          title: `${things}`,
-          content: "Content of post 1",
-          tags: ["#tag1", "#tag2", "#tag3"],
-          postCreator: "postCreator",
-          dateOfCreation: new Date(),
-          likesCount: 100,
-          commentsCount: 250,
-          link: "https://google.com",
-        },
-        {
-          title: "Post 2",
-          content: "Content of post 2",
-          tags: ["#tag1", "#tag2", "#tag3"],
-          postCreator: "postCreator",
-          dateOfCreation: new Date(),
-          likesCount: 100,
-          commentsCount: 250,
-          link: "https://google.com",
-        },
-      ];
+
+    await client.connect();
+    console.log("Connected to DB");
+
+    try {
+      const queryPosts = client.db().collection("Posts");
+      if (reqBody.includes("posts")) {
+        const query = {
+          $or: [
+            { postTitle: { $regex: searchWord, $options: "i" } },
+            { postContent: { $regex: searchWord, $options: "i" } },
+          ],
+        };
+
+        const options = {
+          limit: 50,
+        };
+
+        const result = await queryPosts.find(query, options).toArray();
+        response["posts"] = result;
+      }
+      if (reqBody.includes("tags")) {
+        const query = {
+          $or: [{ postTags: { $regex: "#" + searchWord, $options: "i" } }],
+        };
+
+        const options = {
+          limit: 50,
+        };
+
+        const result = await queryPosts.find(query, options).toArray();
+        response["tags"] = result;
+      }
+      if (reqBody.includes("accounts")) {
+        const queryAccounts = client.db().collection("Accounts");
+        const query = {
+          $or: [{ userID: { $regex: searchWord, $options: "i" } }],
+        };
+
+        const options = {
+          limit: 50,
+        };
+
+        const result = await queryAccounts.find(query, options).toArray();
+        response["accounts"] = result;
+        console.log(result);
+      }
+
+      res.send(response);
+    } catch (error) {
+      console.log(error);
+      res.send(error);
+    } finally {
+      await client.close();
+      console.log("Disconnected from DB");
     }
-    console.log(response);
-    res.send(response);
   },
 };
 
