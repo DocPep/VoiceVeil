@@ -29,7 +29,6 @@ function HomeFeed() {
           },
         }
       );
-
       setFeedPosts(getPosts.data);
     }
     getFeedPosts(username);
@@ -72,20 +71,22 @@ function HomeFeed() {
             onClick={handleTextFieldClick}
           />
         </Box>
-        {feedPosts.map((post) => {
-          return (
-            <div className={styles.postContainer}>
-              <div>{post.title}</div>
-              <div>{post.content}</div>
-              <div>{post.tags}</div>
-              <div>{post.postCreator}</div>
-              <div>{post.dateOfCreation}</div>
-              <div>{post.likesCount}</div>
-              <div>{post.commentsCount}</div>
-              <div>{post.link}</div>
-            </div>
-          );
-        })}
+        {feedPosts.length > 0 ? (
+          feedPosts.map((post) => {
+            return (
+              <div className={styles.postContainer}>
+                <div>{post.postTitle}</div>
+                <div>{post.postContent}</div>
+                <div>{post.postTags}</div>
+                <div>{post.postCreator}</div>
+                <div>{post.postDate}</div>
+                <div>{post.likes}</div>
+              </div>
+            );
+          })
+        ) : (
+          <div>NO POSTS HERE</div>
+        )}
       </div>
     </div>
   );

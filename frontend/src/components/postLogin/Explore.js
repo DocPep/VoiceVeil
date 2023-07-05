@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "../../styles.module.css";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -6,6 +7,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { Button } from "@mui/material";
+import axios from "axios";
 
 function ExplorePage() {
   const theme = createTheme({
@@ -16,8 +18,58 @@ function ExplorePage() {
     },
   });
 
-  const handleSearch = () => {
-    window.alert("You clicked the search button");
+  const [postsSet, setPostsSet] = React.useState(false);
+  const [tagsSet, setTagsSet] = React.useState(false);
+  const [accountsSet, setAccountsSet] = React.useState(false);
+  const [postResults, setPostResults] = React.useState([]);
+  const [postsWithTagsResults, setPostsWithTagsResults] = React.useState([]);
+  const [accountResults, setAccountResults] = React.useState([]);
+
+  const handleSearch = async () => {
+    setAccountResults([]);
+    setPostResults([]);
+    setPostsWithTagsResults([]);
+
+    var searchList = [];
+    if (document.getElementById("posts-checkbox").checked) {
+      searchList.push("posts");
+    }
+    if (document.getElementById("posts-tags-checkbox").checked) {
+      searchList.push("tags");
+    }
+    if (document.getElementById("accounts-checkbox").checked) {
+      searchList.push("accounts");
+    }
+
+    searchList.sort();
+
+    const searchQueryResults = await axios.get(
+      "http://localhost:5000/search/explorePage",
+      {
+        params: {
+          searchFor: searchList,
+        },
+      }
+    );
+
+    if (searchList.includes("posts")) {
+      setPostsSet(true);
+      setPostResults(searchQueryResults.data.posts);
+    } else {
+      setPostsSet(false);
+    }
+    if (searchList.includes("tags")) {
+      setTagsSet(true);
+      setPostsWithTagsResults(searchQueryResults.data.tags);
+    } else {
+      setTagsSet(false);
+    }
+    if (searchList.includes("accounts")) {
+      setAccountsSet(true);
+      setAccountResults(searchQueryResults.data.accounts);
+    } else {
+      setAccountsSet(false);
+    }
   };
 
   return (
@@ -60,6 +112,7 @@ function ExplorePage() {
                       color: "yellow",
                     },
                   }}
+                  id="posts-checkbox"
                 />
               }
               label="Posts"
@@ -77,6 +130,7 @@ function ExplorePage() {
                       color: "yellow",
                     },
                   }}
+                  id="posts-tags-checkbox"
                 />
               }
               label="Posts with tags"
@@ -94,6 +148,7 @@ function ExplorePage() {
                       color: "yellow",
                     },
                   }}
+                  id="accounts-checkbox"
                 />
               }
               label="Accounts"
@@ -108,7 +163,91 @@ function ExplorePage() {
           </div>
         </div>
         <div className={styles.explorePagehorizontalSeparator}></div>
-        <div className={styles.resultSpace}></div>
+        <div className={styles.resultSpace}>
+          {!postsSet && !tagsSet && !accountsSet ? (
+            "Search for something you biatch!"
+          ) : (
+            <>
+              <div>
+                <div>
+                  {postsSet ? (
+                    <>
+                      <div className={styles.searchTypeHeading}><h2>POSTS</h2></div>
+                      <div>
+                        {postResults.map((post) => {
+                          return (
+                            <div className={styles.postContainer}>
+                              <div>{post.title}</div>
+                              <div>{post.content}</div>
+                              <div>{post.tags}</div>
+                              <div>{post.postCreator}</div>
+                              <div>{post.dateOfCreation}</div>
+                              <div>{post.likesCount}</div>
+                              <div>{post.commentsCount}</div>
+                              <div>{post.link}</div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+                <div>
+                  {tagsSet ? (
+                    <>
+                      <div className={styles.searchTypeHeading}><h2>TAGS</h2></div>
+                      <div>
+                        {postsWithTagsResults.map((post) => {
+                          return (
+                            <div className={styles.postContainer}>
+                              <div>{post.title}</div>
+                              <div>{post.content}</div>
+                              <div>{post.tags}</div>
+                              <div>{post.postCreator}</div>
+                              <div>{post.dateOfCreation}</div>
+                              <div>{post.likesCount}</div>
+                              <div>{post.commentsCount}</div>
+                              <div>{post.link}</div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+                <div>
+                  {accountsSet ? (
+                    <>
+                      <div className={styles.searchTypeHeading}><h2>ACCOUNTS</h2></div>
+                      <div>
+                        {accountResults.map((post) => {
+                          return (
+                            <div className={styles.postContainer}>
+                              <div>{post.title}</div>
+                              <div>{post.content}</div>
+                              <div>{post.tags}</div>
+                              <div>{post.postCreator}</div>
+                              <div>{post.dateOfCreation}</div>
+                              <div>{post.likesCount}</div>
+                              <div>{post.commentsCount}</div>
+                              <div>{post.link}</div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

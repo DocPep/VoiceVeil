@@ -42,7 +42,7 @@ const postControl = {
         comments: [],
         postNumber: universeObject.universalPostCounter,
         postCreator: req.body.createdBy,
-        postDate: req.body.createdAt
+        postDate: req.body.createdAt,
       });
 
       console.log(
@@ -61,70 +61,41 @@ const postControl = {
     }
   },
   getFeedPosts: async (req, res) => {
-    const post1 = {
-      title: "Post 1",
-      content: "Content of post 1",
-      tags: ["#tag1", "#tag2", "#tag3"],
-      postCreator: "postCreator",
-      dateOfCreation: new Date(),
-      likesCount: 100,
-      commentsCount: 250,
-      link: "https://google.com"
-    }
-    const post2 = {
-      title: "Post 2",
-      content: "Content of post 2",
-      tags: ["#tag1", "#tag2", "#tag3"],
-      postCreator: "postCreator",
-      dateOfCreation: new Date(),
-      likesCount: 100,
-      commentsCount: 250,
-      link: "https://google.com"
-    }
-    const post3 = {
-      title: "Post 3",
-      content: "Content of post 3",
-      tags: ["#tag1", "#tag2", "#tag3"],
-      postCreator: "postCreator",
-      dateOfCreation: new Date(),
-      likesCount: 100,
-      commentsCount: 250,
-      link: "https://google.com"
-    }
-    const post4 = {
-      title: "Post 4",
-      content: "Content of post 4",
-      tags: ["#tag1", "#tag2", "#tag3"],
-      postCreator: "postCreator",
-      dateOfCreation: new Date(),
-      likesCount: 100,
-      commentsCount: 250,
-      link: "https://google.com"
-    }
-    const post5 = {
-      title: "Post 5",
-      content: "Content of post 5",
-      tags: ["#tag1", "#tag2", "#tag3"],
-      postCreator: "postCreator",
-      dateOfCreation: new Date(),
-      likesCount: 100,
-      commentsCount: 250,
-      link: "https://google.com"
-    }
-    const post6 = {
-      title: "Post 6",
-      content: "Content of post 6",
-      tags: ["#tag1", "#tag2", "#tag3"],
-      postCreator: "postCreator",
-      dateOfCreation: new Date(),
-      likesCount: 100,
-      commentsCount: 250,
-      link: "https://google.com"
-    }
+    const username = req.query.username;
 
-    var allPost = [post1, post2, post3, post4, post5, post6];
+    await client.connect();
+    console.log("Connected to DB");
 
-    res.send(allPost);
+    const accounts = client.db().collection("Accounts");
+    const posts = client.db().collection("Posts");
+
+    try {
+      const userIsChorusTo = (await accounts.findOne({ userID: username }))
+        .chorusToList;
+
+      const feedPosts = await posts
+        .aggregate([
+          { $match: { postCreator: { $in: userIsChorusTo } } },
+          {
+            $addFields: {
+              postDate: {
+                $toDate: "$postDate",
+              },
+            },
+          },
+          { $sort: { postDate: -1 } },
+          { $limit: 10 },
+        ])
+        .toArray();
+
+      res.send(feedPosts);
+    } catch (error) {
+      console.error(error);
+      res.send(error);
+    } finally {
+      await client.close();
+      console.log("Disconnected from DB");
+    }
   },
 };
 
