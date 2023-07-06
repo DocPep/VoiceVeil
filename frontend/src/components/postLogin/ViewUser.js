@@ -1,11 +1,12 @@
+import styles from "../../styles.module.css";
 import React from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
-import styles from "../../styles.module.css";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
-function Account(props) {
-  const [username, setUsername] = React.useState("");
+function ViewUser() {
+  const username = window.location.href.split("/").slice(-1)[0];
+  console.log(username);
   const [chorusCount, setChorusCount] = React.useState(-1);
   const [chorusList, setChorusList] = React.useState([]);
   const [chorusToCount, setChorusToCount] = React.useState(-1);
@@ -15,39 +16,31 @@ function Account(props) {
   const [postList, setPostList] = React.useState([]);
   const [error, setError] = React.useState(false);
 
-  React.useEffect(() => {
-    async function getUserData() {
-      try {
-        const accountData = await axios.get(
-          "http://localhost:5000/user/getData",
-          {
-            params: {
-              username: props.username,
-            },
-          }
-        );
+  React.useState(() => {
+    async function getUser() {
+      const accountData = await axios
+        .get("http://localhost:5000/user/getData", {
+          params: {
+            username: username,
+          },
+        })
+        .catch((error) => setError(error));
 
-        setUsername(accountData.data.userID);
-        setChorusCount(accountData.data.chorusVoices);
-        setChorusList(accountData.data.chorusList);
-        setChorusToCount(accountData.data.chorusTo);
-        setChorusToList(accountData.data.chorusToList);
-        setTrusteeCount(accountData.data.trusteeCount);
-        setPostCount(accountData.data.postsCount);
-        setPostList(accountData.data.postList);
-      } catch (error) {
-        setError(true);
-        window.alert(
-          "There was some error getting account data. Please try again!"
-        );
-      }
+      setChorusCount(accountData.data.chorusVoices);
+      setChorusList(accountData.data.chorusList);
+      setChorusToCount(accountData.data.chorusTo);
+      setChorusToList(accountData.data.chorusToList);
+      setTrusteeCount(accountData.data.trusteeCount);
+      setPostCount(accountData.data.postsCount);
+      setPostList(accountData.data.postList);
     }
 
-    getUserData();
-  }, [props.username]);
+    getUser();
+  }, []);
 
   return (
     <div className={styles.accountSettingsBackground}>
+      {username}
       <div className={styles.accountDetailsContainer}>
         {error ? (
           <div className={styles.errorMessage}>
@@ -126,4 +119,4 @@ function Account(props) {
   );
 }
 
-export default Account;
+export default ViewUser;

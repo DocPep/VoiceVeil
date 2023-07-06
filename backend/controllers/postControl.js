@@ -4,6 +4,7 @@ const {
   MongoClient,
   ServerApiVersion,
   MONGO_CLIENT_EVENTS,
+  ObjectId,
 } = require("mongodb");
 
 const MONOGODB_URL = process.env.MONGODBURL;
@@ -92,6 +93,24 @@ const postControl = {
     } catch (error) {
       console.error(error);
       res.send(error);
+    } finally {
+      await client.close();
+      console.log("Disconnected from DB");
+    }
+  },
+  getPost: async (req, res) => {
+    const postID = req.query.postID;
+    console.log("Post ID: " + postID);
+    await client.connect();
+    console.log("Connected to DB");
+
+    const posts = client.db().collection("Posts");
+    try {
+      const post = await posts.findOne({ _id: new ObjectId(postID) });
+      res.send(post);
+    } catch (err) {
+      console.log(err);
+      res.send(err.message);
     } finally {
       await client.close();
       console.log("Disconnected from DB");

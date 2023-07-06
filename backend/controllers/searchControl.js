@@ -65,7 +65,6 @@ const searchControl = {
 
         const result = await queryAccounts.find(query, options).toArray();
         response["accounts"] = result;
-        console.log(result);
       }
 
       res.send(response);

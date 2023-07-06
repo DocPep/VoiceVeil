@@ -37,6 +37,10 @@ function HomeFeed() {
     getFeedPosts(username);
   }, [username]);
 
+  const viewPostHandle = (postid) => {
+    window.location.href = `/viewpost/${postid}`;
+  };
+
   return (
     <div
       className={`${styles.postLoginHomePageBackground} ${
@@ -69,8 +73,8 @@ function HomeFeed() {
               backgroundColor: "#d1542f",
               borderRadius: "4px",
               flexGrow: 1,
-              width: "50vw",
             }}
+            style={{ width: "40vw" }}
             onClick={handleTextFieldClick}
           />
         </Box>
@@ -99,15 +103,27 @@ function HomeFeed() {
                   <div className={styles.likes}>
                     This post resonated with:{" " + post.likes + " "} users
                   </div>
-                  <Button className={styles.viewPostButton}>VIEW POST</Button>
+                  <Button
+                    className={styles.viewPostButton}
+                    onClick={() => viewPostHandle(post._id)}
+                  >
+                    VIEW POST
+                  </Button>
                 </div>
               );
             })
           ) : (
-            <div>NO POSTS HERE</div>
+            <div className={styles.loadingPostsMessage}>
+              NO POSTS ON YOUR FEED, JOIN SOMEONE'S CHORUS OR VISIT THE EXPLORE
+              PAGE TO SEE POSTS
+            </div>
           )
         ) : (
-          <><div className={styles.loadingPostsMessage}>LOADING POSTS PLEASE WAIT...</div></>
+          <>
+            <div className={styles.loadingPostsMessage}>
+              LOADING POSTS PLEASE WAIT...
+            </div>
+          </>
         )}
       </div>
     </div>

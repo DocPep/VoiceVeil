@@ -5,6 +5,8 @@ import HomeFeed from "./postLogin/HomeFeed";
 import Account from "./postLogin/UserSettings";
 import NotificationsPage from "./postLogin/Notifications";
 import CreatePost from "./postLogin/CreatePost";
+import ViewPost from "./postLogin/ViewPost";
+import ViewUser from "./postLogin/ViewUser";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function LoginHome(props) {
@@ -31,6 +33,8 @@ function LoginHome(props) {
             path="/create-post"
             element={<CreatePost username={username} />}
           ></Route>
+          <Route path="/viewpost/:id" element={<ViewPost />} />
+          <Route path="/user/:id" element={<ViewUser/>} />
         </Routes>
       </div>
     </Router>

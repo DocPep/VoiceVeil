@@ -491,7 +491,7 @@
   color: black;
   margin: 25px;
   padding: 25px;
-  width: 65vw;
+  width: 50vw;
   border-radius: 35px;
 }
 
@@ -636,6 +636,8 @@
   color: yellow;
   background-color: #202224;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border-radius: 20px;
+  margin: 20px;
 }
 
 .noPostsFoundMessage {
@@ -648,7 +650,9 @@
   color: yellow;
   background-color: #162535;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  margin: 20px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .accountContainer {

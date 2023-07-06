@@ -44,6 +44,16 @@ function ExplorePage() {
 
     searchList.sort();
     const searchWord = document.getElementById("explore-search-field").value;
+    if (!searchWord) {
+      document.getElementById("helperText").innerHTML =
+        "Please type something to search for!";
+      return;
+    }
+    if (searchList.length === 0) {
+      document.getElementById("helperText").innerHTML =
+        "Please select something to search for!";
+      return;
+    }
     const searchQueryResults = await axios.get(
       "http://localhost:5000/search/explorePage",
       {
@@ -53,8 +63,6 @@ function ExplorePage() {
         },
       }
     );
-
-    console.log(searchQueryResults);
 
     if (searchList.includes("posts")) {
       setPostsSet(true);
@@ -75,6 +83,14 @@ function ExplorePage() {
       setAccountsSet(false);
     }
   };
+
+  const viewPostHandle = (postid) => {
+    window.location.href = `/viewpost/${postid}`;
+  };
+
+  const handleUserView = (username) => {
+    window.location.href = `/user/${username}`;
+  }
 
   return (
     <div className={styles.explorePageBackground}>
@@ -162,14 +178,18 @@ function ExplorePage() {
               className={styles.checkBoxes}
             />
           </div>
-          <div className={styles.helperText}>
+          <div className={styles.helperText} id="helperText">
             Please select atleast one of the above
           </div>
         </div>
         <div className={styles.explorePagehorizontalSeparator}></div>
         <div className={styles.resultSpace}>
           {!postsSet && !tagsSet && !accountsSet ? (
-            "Search for something you biatch!"
+            <>
+              <div className={styles.searchPrompt}>
+                Search results will be shown here!
+              </div>
+            </>
           ) : (
             <>
               <div>
@@ -202,13 +222,21 @@ function ExplorePage() {
                                   </div>
                                 </div>
                                 <div className={styles.postTags}>
-                                  Related tags: <b>{post.postTags}</b>
+                                  Related tags:{" "}
+                                  <b>
+                                    {post.postTags.map((tag) => {
+                                      return <>{tag + " "}</>;
+                                    })}
+                                  </b>
                                 </div>
                                 <div className={styles.likes}>
                                   This post resonated with:
                                   {" " + post.likes + " "} users
                                 </div>
-                                <Button className={styles.viewPostButton}>
+                                <Button
+                                  className={styles.viewPostButton}
+                                  onClick={() => viewPostHandle(post._id)}
+                                >
                                   VIEW POST
                                 </Button>
                               </div>
@@ -262,7 +290,10 @@ function ExplorePage() {
                                   This post resonated with:
                                   {" " + post.likes + " "} users
                                 </div>
-                                <Button className={styles.viewPostButton}>
+                                <Button
+                                  className={styles.viewPostButton}
+                                  onClick={() => viewPostHandle(post._id)}
+                                >
                                   VIEW POST
                                 </Button>
                               </div>
@@ -288,14 +319,26 @@ function ExplorePage() {
                         <h2>ACCOUNTS</h2>
                       </div>
                       <div>
-                        {accountResults.map((account) => {
-                          return (
-                            <div className={styles.accountContainer}>
-                              <div className={styles.accountUsername}>{account.userID}</div>
-                              <Button className={styles.viewUserButton}>VIEW USER ACCOUNT</Button>
+                        {accountResults.length > 0 ? (
+                          accountResults.map((account) => {
+                            return (
+                              <div className={styles.accountContainer}>
+                                <div className={styles.accountUsername}>
+                                  {account.userID}
+                                </div>
+                                <Button className={styles.viewUserButton} onClick={() => handleUserView(account.userID)}>
+                                  VIEW USER ACCOUNT
+                                </Button>
+                              </div>
+                            );
+                          })
+                        ) : (
+                          <>
+                            <div className={styles.noPostsFoundMessage}>
+                              NO MATCHING ACCOUNTS FOUND
                             </div>
-                          );
-                        })}
+                          </>
+                        )}
                       </div>
                     </>
                   ) : (
