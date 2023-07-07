@@ -8,7 +8,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { Button } from "@mui/material";
 import axios from "axios";
-import { format } from "date-fns";
 
 function ExplorePage() {
   const theme = createTheme({
@@ -90,7 +89,7 @@ function ExplorePage() {
 
   const handleUserView = (username) => {
     window.location.href = `/user/${username}`;
-  }
+  };
 
   return (
     <div className={styles.explorePageBackground}>
@@ -215,10 +214,7 @@ function ExplorePage() {
                                     Voice of: <b>{post.postCreator}</b>
                                   </div>
                                   <div className={styles.postDate}>
-                                    {format(
-                                      new Date(post.postDate),
-                                      "do-MMMM-yyyy HH:mm:ss"
-                                    )}
+                                    {post.postDate}
                                   </div>
                                 </div>
                                 <div className={styles.postTags}>
@@ -277,10 +273,7 @@ function ExplorePage() {
                                     Voice of: <b>{post.postCreator}</b>
                                   </div>
                                   <div className={styles.postDate}>
-                                    {format(
-                                      new Date(post.postDate),
-                                      "do-MMMM-yyyy HH:mm:ss"
-                                    )}
+                                    {post.postDate}
                                   </div>
                                 </div>
                                 <div className={styles.postTags}>
@@ -326,7 +319,10 @@ function ExplorePage() {
                                 <div className={styles.accountUsername}>
                                   {account.userID}
                                 </div>
-                                <Button className={styles.viewUserButton} onClick={() => handleUserView(account.userID)}>
+                                <Button
+                                  className={styles.viewUserButton}
+                                  onClick={() => handleUserView(account.userID)}
+                                >
                                   VIEW USER ACCOUNT
                                 </Button>
                               </div>

@@ -7,6 +7,25 @@ import axios from "axios";
 function CreatePost() {
   const [prompt, SetPrompt] = React.useState("");
 
+  function formatDate(dateString) {
+    const parts = dateString.split("-");
+    const day = parseInt(parts[0]);
+    const month = parseInt(parts[1]);
+    const year = parseInt(parts[2]);
+
+    // Create a Date object with the given values
+    const date = new Date(year, month - 1, day);
+
+    // Format the date using the Intl.DateTimeFormat
+    const formatter = new Intl.DateTimeFormat("en", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+
+    return formatter.format(date);
+  }
+
   const handleCreatePost = async () => {
     const title = document.getElementById("post-title-field");
     const body = document.getElementById("post-body-field");
@@ -20,12 +39,17 @@ function CreatePost() {
       window.alert("No tags were specified");
     } else {
       const tagsArray = tags.value.split(", ").map((tag) => "#" + tag);
+      const dateobj = new Date();
+      const day = dateobj.getDate();
+      const month = dateobj.getMonth() + 1;
+      const year = dateobj.getFullYear();
+      const dateactual = formatDate(day + "-" + month + "-" + year);
       const result = await axios.post("http://localhost:5000/post/createPost", {
         title: title.value,
         content: body.value,
         tags: tagsArray,
         createdBy: JSON.parse(localStorage.getItem("token")).username,
-        createdAt: new Date(),
+        createdAt: dateactual,
       });
 
       SetPrompt(result.data);

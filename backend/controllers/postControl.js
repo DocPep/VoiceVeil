@@ -39,7 +39,6 @@ const postControl = {
         postTitle: req.body.title,
         postContent: req.body.content,
         postTags: req.body.tags,
-        likes: 0,
         comments: [],
         postNumber: universeObject.universalPostCounter,
         postCreator: req.body.createdBy,
