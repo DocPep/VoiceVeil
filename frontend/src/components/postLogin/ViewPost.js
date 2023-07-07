@@ -9,6 +9,9 @@ function ViewPost() {
   const postID = window.location.href.split("/").slice(-1)[0];
   const [post, setPost] = React.useState([]);
   const [commentsSize, setCommentsSize] = React.useState(0);
+  const [commentRepliesShowStates, setCommentRepliesShowStates] =
+    React.useState([]);
+  const [writeReplyToComment, setWriteReplyToComment] = React.useState([]);
 
   React.useEffect(() => {
     async function getPost() {
@@ -20,6 +23,8 @@ function ViewPost() {
 
       setPost(post.data);
       setCommentsSize(post.data.comments.length);
+      setCommentRepliesShowStates(Array(post.data.comments.length).fill(false));
+      setWriteReplyToComment(Array(post.data.comments.length).fill(false));
     }
 
     getPost();
@@ -37,6 +42,38 @@ function ViewPost() {
     setCommentsSize(post.comments.length);
     document.getElementById("add-comment-field").value = "";
     await axios.post("http://localhost:5000/post/updatePost", { post: post });
+    commentRepliesShowStates.push(false);
+    setCommentRepliesShowStates(commentRepliesShowStates);
+  };
+
+  const viewReply = (index) => {
+    setCommentRepliesShowStates((prevState) =>
+      prevState.map((state, i) => (i === index ? !state : state))
+    );
+  };
+
+  const replyToComment = (index) => {
+    setWriteReplyToComment((prevState) =>
+      prevState.map((state, i) => (i === index ? !state : state))
+    );
+  };
+
+  const addReply = async (index) => {
+    const updatedPost = post;
+    const newReply = {};
+    newReply["index"] = post.comments[index].childComments.length;
+    newReply["reply"] = document.getElementById(
+      "reply-comment-field-" + index
+    ).value;
+    newReply["username"] = JSON.parse(localStorage.getItem("token")).username;
+    updatedPost.comments[index].childComments.push(newReply);
+    setCommentRepliesShowStates((prevState) =>
+      prevState.map((state, i) => (i === index ? !state : state))
+    );
+    document.getElementById("reply-comment-field-" + index).value = "";
+    await axios.post("http://localhost:5000/post/updatePost", {
+      post: updatedPost,
+    });
   };
 
   return (
@@ -87,16 +124,80 @@ function ViewPost() {
                   {post.comments.map((com) => (
                     <div className={styles.comment}>
                       <div className={styles.mainCommentBody}>
-                        <pre>
-                          <div className={styles.commenter}>
-                            {com.commenter} says:
-                          </div>
+                        <pre className={styles.commenter}>
+                          <div>{com.commenter} says: </div>
                         </pre>
-                        <div className={styles.commentBody}>{com.comment}</div>
+                        <div className={styles.commentBody}>
+                          <h3>{com.comment}</h3>
+                        </div>
                       </div>
                       <div className={styles.commentInfo}>
-                        <div>{com.likesCount}</div>
-                        <div>{com.dislikesCount}</div>
+                        <div>{com.likesCount} likes</div>
+                        <div>{com.dislikesCount} dislikes</div>
+                      </div>
+                      <div className={styles.commentReplies}>
+                        <div>
+                          {commentRepliesShowStates[com.id] ? (
+                            com.childComments.length > 0 ? (
+                              <div className={styles.repliesHolder}>
+                                <b>
+                                  <h2>REPLIES</h2>
+                                </b>
+                                {com.childComments.map((reply) => {
+                                  return (
+                                    <div className={styles.replyUnit}>
+                                      <pre>
+                                        <h4>{reply.username+":"}</h4>
+                                      </pre>
+                                      {reply.reply}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            ) : (
+                              <div className={styles.repliesHolder}>
+                                This comment has no replies
+                              </div>
+                            )
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                        <div>
+                          <div className={styles.replyButtons}>
+                            <Button onClick={() => viewReply(com.id)}>
+                              {commentRepliesShowStates[com.id]
+                                ? "Hide All Replies"
+                                : "Show All Replies"}
+                            </Button>
+                            <Button onClick={() => replyToComment(com.id)}>
+                              {writeReplyToComment[com.id]
+                                ? "Cancel Reply"
+                                : "Reply to this comment"}
+                            </Button>
+                          </div>
+                          <div>
+                            {writeReplyToComment[com.id] ? (
+                              <div className={styles.replyField}>
+                                <TextField
+                                  label="Reply"
+                                  sx={{
+                                    backgroundColor: "rgb(17, 221, 211)",
+                                    borderRadius: "4px",
+                                    width: "50vw",
+                                  }}
+                                  variant="filled"
+                                  id={"reply-comment-field-" + com.id}
+                                />
+                                <Button onClick={() => addReply(com.id)}>
+                                  REPLY
+                                </Button>
+                              </div>
+                            ) : (
+                              <></>
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   ))}
