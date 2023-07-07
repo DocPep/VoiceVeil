@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Outfit:wght@600&family=Rubik:wght@300&family=Work+Sans&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Outfit:wght@600&family=Rubik:wght@300&family=Work+Sans:wght@400;700&display=swap');
 * {
   padding: 0;
   margin: 0;
@@ -678,4 +677,106 @@
   color: black !important;
   background-color: yellow !important;
   font-family: "Kanit" !important;
+}
+
+.loadingPostScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #030303;
+  color: orange;
+  font-family: "Work Sans", sans-serif;
+  height: calc(88vh - 2px);
+  width: 100vw;
+}
+
+.viewPostBackground {
+  overflow-y: scroll !important;
+  display: inline-block;
+  background-color: #030303;
+  color: orange;
+  font-family: "Work Sans", sans-serif;
+  height: calc(88vh - 2px);
+  width: 100vw;
+}
+
+.viewPostContainer {
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  max-height: 70vh;
+  height: fit-content;
+  width: 85vw;
+  background-color: #0d0c0c;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.viewPostTitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+  width: 75vw;
+  font-size: large;
+  font-weight: 700;
+  border-bottom: #162535 3px solid;
+  padding-bottom: 10px;
+}
+
+.viewPostContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 75vw;
+  font-weight: 400;
+  margin: 20px;
+}
+
+.viewShowPostBottomBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 75vw;
+  margin: 20px;
+  padding: 15px;
+  border-top: #162535 2px solid;
+  border-bottom: #162535 2px solid;
+}
+
+.viewPostTags, .viewLikes {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  width: 75vw;
+}
+
+.viewLikes {
+  padding: 20px;
+  border-top: #162535 2px solid;
+  border-bottom: #162535 2px solid;
+}
+
+.viewComments {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  font-family: "Outfit";
+}
+
+.commentsHolder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
