@@ -770,8 +770,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 20px;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
   font-family: "Outfit";
+  width: 80vw;
+  background-color: #0a2a35;
+}
+
+.commentsHeading {
+  padding: 15px;
+  margin: 10px;
+  border: 2px black solid;
 }
 
 .commentsHolder {
@@ -779,4 +789,44 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.commentsInfo {
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 10px;
+  width: 75vw;
+  padding: 15px;
+  border-bottom: 2px aliceblue solid;
+}
+
+.mainCommentBody {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 10px;
+  width: 75vw;
+}
+
+.commentInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin: auto;
+  width: 50vw;
+}
+
+.commenter {
+  color: black;
+  font-size: 24px;
 }

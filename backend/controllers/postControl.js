@@ -116,6 +116,26 @@ const postControl = {
       console.log("Disconnected from DB");
     }
   },
+  updatePost: async (req, res) => {
+    await client.connect();
+    console.log("Connected to DB to update post");
+    const postCollection = client.db().collection("Posts");
+    try {
+      const postID = req.body.post._id;
+      console.log(req.body.post.comments);
+      const result = await postCollection.updateOne(
+        { _id: new ObjectId(postID) },
+        { $set: { comments: req.body.post.comments } }
+      );
+      console.log(`${result.modifiedCount} document(s) updated.`);
+    } catch (error) {
+      console.error(error);
+      res.send(error);
+    } finally {
+      await client.close();
+      console.log("Disconnected from DB");
+    }
+  },
 };
 
 module.exports = postControl;

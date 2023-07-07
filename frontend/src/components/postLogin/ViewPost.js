@@ -19,17 +19,24 @@ function ViewPost() {
       });
 
       setPost(post.data);
+      setCommentsSize(post.data.comments.length);
     }
 
     getPost();
   }, [postID]);
 
-  const addComment = () => {
-    console.log("I was called");
-    const comment = document.getElementById("add-comment-field").value;
+  const addComment = async () => {
+    const comment = {};
+    comment["id"] = post.comments.length;
+    comment["commenter"] = JSON.parse(localStorage.getItem("token")).username;
+    comment["comment"] = document.getElementById("add-comment-field").value;
+    comment["likesCount"] = 0;
+    comment["dislikesCount"] = 0;
+    comment["childComments"] = [];
     post.comments.push(comment);
     setCommentsSize(post.comments.length);
     document.getElementById("add-comment-field").value = "";
+    await axios.post("http://localhost:5000/post/updatePost", { post: post });
   };
 
   return (
@@ -67,16 +74,31 @@ function ViewPost() {
             </div>
           </div>
           <div className={styles.viewComments}>
-            <h2>COMMENTS</h2>
+            <h2 className={styles.commentsHeading}>COMMENTS</h2>
             {commentsSize === 0 ? (
               <>
-                <div>NO COMMENTS YET</div>
+                <div className={styles.commentsInfo}>
+                  NO COMMENTS YET :( BE THE FIRST TO COMMENT!!
+                </div>
               </>
             ) : (
               <>
                 <div className={styles.commentsHolder}>
                   {post.comments.map((com) => (
-                    <div>{com}</div>
+                    <div className={styles.comment}>
+                      <div className={styles.mainCommentBody}>
+                        <pre>
+                          <div className={styles.commenter}>
+                            {com.commenter} says:
+                          </div>
+                        </pre>
+                        <div className={styles.commentBody}>{com.comment}</div>
+                      </div>
+                      <div className={styles.commentInfo}>
+                        <div>{com.likesCount}</div>
+                        <div>{com.dislikesCount}</div>
+                      </div>
+                    </div>
                   ))}
                 </div>
               </>
@@ -89,9 +111,6 @@ function ViewPost() {
                 borderRadius: "4px",
                 flexGrow: 1,
                 width: "50vw",
-              }}
-              InputLabelProps={{
-                shrink: true,
               }}
               variant="filled"
               id="add-comment-field"
