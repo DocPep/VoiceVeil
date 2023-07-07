@@ -121,7 +121,6 @@ const postControl = {
     const postCollection = client.db().collection("Posts");
     try {
       const postID = req.body.post._id;
-      console.log(req.body.post.comments);
       const result = await postCollection.updateOne(
         { _id: new ObjectId(postID) },
         { $set: { comments: req.body.post.comments } }
