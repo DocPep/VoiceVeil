@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Outfit:wght@600&family=Rubik:wght@300&family=Work+Sans:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Outfit:wght@600&family=Rubik:wght@300&family=Work+Sans:wght@400;700&display=swap");
 * {
   padding: 0;
   margin: 0;
@@ -351,7 +351,8 @@
   justify-content: space-evenly;
   align-items: center;
   width: 60vw;
-  margin: 20px;
+  margin: 0px;
+  height: 40vh;
 }
 
 .accountDetialsUsernameAndPhotoHolder,
@@ -379,7 +380,7 @@
   height: 1px;
   width: 55vw;
   background-color: rgb(197, 235, 229);
-  margin: 35px;
+  margin: 15px;
 }
 
 .moreDetailsViewButtons {
@@ -447,6 +448,7 @@
 .createPostHeading {
   color: orange;
   font-family: "Outfit", sans-serif;
+  text-align: center;
 }
 
 .createPostTextFieldsContainer {
@@ -472,6 +474,7 @@
 .createPostPrompt {
   color: orangered;
   font-family: "Outfit", sans-serif;
+  text-align: center;
 }
 
 .createPostButtons {
@@ -750,7 +753,8 @@
   border-bottom: #162535 2px solid;
 }
 
-.viewPostTags, .viewLikes {
+.viewPostTags,
+.viewLikes {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -881,4 +885,147 @@
 
 .followUnfollowButton {
   margin-top: 20px;
+}
+
+.chorusList,
+.chorusToList {
+  position: absolute;
+  z-index: 9000;
+  background-color: white;
+  width: 30vw;
+  height: 75vh;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.loadingMessage {
+  background-color: #0d1117;
+  color: yellow;
+  font-family: "Outfit", sans-serif;
+  width: 30vw;
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+}
+
+.followerList {
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #0d1117;
+  width: 30vw;
+  height: 75vh;
+  border-radius: 20px;
+}
+
+.follower {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 28vw;
+  height: 7vh;
+  background-color: #0a2a35;
+  color: yellowgreen;
+  font-family: "Work sans", sans-serif;
+  margin: 10px;
+}
+
+.FollowersHeading {
+  color: yellow;
+  font-family: "Kanit", sans-serif;
+  margin: 10px;
+}
+
+.followersListHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.closeButton {
+  position: absolute !important;
+  right: 0 !important;
+  background-color: yellow !important;
+  padding: 2px !important;
+  margin-right: 15px !important;
+  color: #0d0c0c !important;
+}
+
+.closeButton:hover {
+  background-color: rgba(253, 253, 0, 0.87) !important;
+}
+
+.viewUserButton2 {
+  color: black !important;
+  background-color: yellow !important;
+  font-family: "Kanit" !important;
+}
+
+.exploreAccountPostContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 58vw;
+  height: 10vh;
+  background-color: #0d1117;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.viewPostButton1 {
+  color: black !important;
+  background-color: yellow !important;
+  font-family: "Kanit" !important;
+}
+
+.postsContainer2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.postSection1 {
+  text-align: center;
+  overflow-y: scroll;
+}
+
+.postHeading1 {
+  margin-bottom: 20px;
+  font-family: Outfit;
+}
+
+.hiddenPostCreate {
+  display: none;
+}
+
+.hiddenPostCreateHolder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+  width: 55vw;
+  background-color: #0a2a35;
+  font-family: Kanit;
+  color: aliceblue;
+}
+
+.createPostButtons2 {
+  background-color: rgb(164, 236, 20) !important;
+  color: brown !important;
+  width: 12vw !important;
+  margin: 20px !important;
+  font-family: Kanit !important;
 }

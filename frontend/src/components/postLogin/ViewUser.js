@@ -59,9 +59,102 @@ function ViewUser() {
     });
   };
 
+  const handleViewUserChorus = () => {
+    document.getElementById("chorus-to-list").style.display = "none";
+    document.getElementById("chorus-list").style.display = "flex";
+  };
+
+  const handleViewUserToChorus = () => {
+    document.getElementById("chorus-list").style.display = "none";
+    document.getElementById("chorus-to-list").style.display = "flex";
+  };
+
+  const closeUserChorus = () => {
+    document.getElementById("chorus-list").style.display = "none";
+  };
+
+  const closeViewChorusTo = () => {
+    document.getElementById("chorus-to-list").style.display = "none";
+  };
+
+  const viewUser = (user) => {
+    window.location.href = "/user/" + user;
+  };
+
+  const viewPost = (id) => {
+    window.location.href = "/viewpost/" + id;
+  };
   return (
     <div className={styles.accountSettingsBackground}>
-      {username}
+      <div className={styles.chorusList} id="chorus-list">
+        {chorusCount === -1 ? (
+          <div className={styles.loadingMessage}>Loading...</div>
+        ) : (
+          <div className={styles.followerList}>
+            <div className={styles.followersListHeader}>
+              <h2 className={styles.FollowersHeading}>User's Chorus</h2>
+              <Button className={styles.closeButton} onClick={closeUserChorus}>
+                X
+              </Button>
+            </div>
+            {chorusList.length === 0 ? (
+              <div className={styles.loadingMessage}>
+                No members are part of User's chorus
+              </div>
+            ) : (
+              chorusList.map((user) => {
+                return (
+                  <div className={styles.follower}>
+                    <div>{user}</div>
+                    <Button
+                      className={styles.viewUserButton2}
+                      onClick={() => viewUser(user)}
+                    >
+                      View User
+                    </Button>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        )}
+      </div>
+      <div className={styles.chorusToList} id="chorus-to-list">
+        {chorusToCount === -1 ? (
+          <div className={styles.loadingMessage}>Loading...</div>
+        ) : (
+          <div className={styles.followerList}>
+            <div className={styles.followersListHeader}>
+              <h2 className={styles.FollowersHeading}>User is Chorus to</h2>
+              <Button
+                className={styles.closeButton}
+                onClick={closeViewChorusTo}
+              >
+                X
+              </Button>
+            </div>
+            {chorusToList.length === 0 ? (
+              <div className={styles.loadingMessage}>
+                No members user is part of chorus to
+              </div>
+            ) : (
+              chorusToList.map((user) => {
+                return (
+                  <div className={styles.follower}>
+                    <div>{user}</div>
+                    <Button
+                      className={styles.viewUserButton2}
+                      onClick={() => viewUser(user)}
+                    >
+                      View User
+                    </Button>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        )}
+      </div>
       <div className={styles.accountDetailsContainer}>
         {error ? (
           <div className={styles.errorMessage}>
@@ -135,34 +228,42 @@ function ViewUser() {
             </div>
             <div className={styles.accountDetailsVerticalSeparator}></div>
             <div className={styles.moreDetailsViewButtons}>
-              <Button className={styles.detailViewButtons}>
+              <Button
+                className={styles.detailViewButtons}
+                onClick={handleViewUserChorus}
+              >
                 {username === currentUser
                   ? "View your chorus"
                   : "View user's chorus"}
               </Button>
-              <Button className={styles.detailViewButtons}>
+              <Button
+                className={styles.detailViewButtons}
+                onClick={handleViewUserToChorus}
+              >
                 {username === currentUser
                   ? "View who you're chorus to"
                   : "View chorus user is part of"}
               </Button>
-              {username === currentUser ? (
-                <Button className={styles.detailViewButtons}>
-                  View your chorus
-                </Button>
-              ) : (
-                <></>
-              )}
             </div>
             <div className={styles.accountDetailsVerticalSeparator}></div>
-            <div className={styles.postSection}>
-              <div className={styles.postHeading}>POSTS</div>
+            <div className={styles.postSection1}>
+              <div className={styles.postHeading1}>POSTS</div>
               <div className={styles.postsContainer}>
-                {postCount > 0
+                {postCount === -1
+                  ? "..."
+                  : postCount > 0
                   ? postList.map((post) => {
                       return (
-                        <div className={styles.viewPostInAccount}>
-                          <div>{post.title}</div>
-                          <Button>View Post</Button>
+                        <div className={styles.exploreAccountPostContainer}>
+                          <div className={styles.postUsername}>
+                            {post.title}
+                          </div>
+                          <Button
+                            className={styles.viewPostButton1}
+                            onClick={() => viewPost(post.id)}
+                          >
+                            VIEW THIS POST
+                          </Button>
                         </div>
                       );
                     })
