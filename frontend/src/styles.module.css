@@ -1029,3 +1029,66 @@
   margin: 20px !important;
   font-family: Kanit !important;
 }
+
+.knowMoreHeading {
+  color: yellow;
+  font-family: Kanit;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.knowMoreContent {
+  color: #1976d2;
+  font-family: Kanit;
+  text-align: center;
+  width: 85vw;
+}
+
+.feedbackTextField {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center !important;
+}
+
+.signInButton2 {
+  margin-top: 25px !important;
+  margin-bottom: 30px !important;
+  background-color: rgba(63, 217, 227, 0.714) !important;
+  color: rgb(4, 4, 62) !important;
+  width: 10vw !important;
+  height: 8vh !important;
+  font-family: "Kanit", sans-serif !important;
+}
+
+.mainFeedback {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.feedbackSubmitted {
+  display: none;
+  font-family: Outfit;
+  color: aliceblue;
+  font-size: 32px;
+}
+
+.feedBackButton {
+  background-color: transparent !important;
+  font-size: 32px !important;
+  color: aliceblue !important;
+  font-family: Outfit !important;
+  text-transform: none !important;
+  text-align: center !important;
+  padding-top: 0px !important;
+}
+
+.formatter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
