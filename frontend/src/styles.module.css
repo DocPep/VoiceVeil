@@ -351,7 +351,7 @@
   justify-content: space-evenly;
   align-items: center;
   width: 60vw;
-  margin: 30px;
+  margin: 20px;
 }
 
 .accountDetialsUsernameAndPhotoHolder,
@@ -871,4 +871,14 @@
   margin: 5px;
   border-bottom: 1px yellowgreen solid;
   padding: 5px;
+}
+
+.searchPrompt {
+  color: #1976d2;
+  font-family: "Work Sans", sans-serif;
+  font-size: 24px;
+}
+
+.followUnfollowButton {
+  margin-top: 20px;
 }

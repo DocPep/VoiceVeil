@@ -10,7 +10,6 @@ function Account(props) {
   const [chorusList, setChorusList] = React.useState([]);
   const [chorusToCount, setChorusToCount] = React.useState(-1);
   const [chorusToList, setChorusToList] = React.useState([]);
-  const [trusteeCount, setTrusteeCount] = React.useState(-1);
   const [postCount, setPostCount] = React.useState(-1);
   const [postList, setPostList] = React.useState([]);
   const [error, setError] = React.useState(false);
@@ -32,7 +31,6 @@ function Account(props) {
         setChorusList(accountData.data.chorusList);
         setChorusToCount(accountData.data.chorusTo);
         setChorusToList(accountData.data.chorusToList);
-        setTrusteeCount(accountData.data.trusteeCount);
         setPostCount(accountData.data.postsCount);
         setPostList(accountData.data.postList);
       } catch (error) {
@@ -90,17 +88,6 @@ function Account(props) {
                   <h3>Users</h3>
                 </div>
               </div>
-              <div className={styles.trusteeHolder}>
-                <div className={styles.accountDetailText}>
-                  <h3>User's voice is trusted by</h3>
-                </div>
-                <div className={styles.mainAccountDetailValue}>
-                  <h2>{trusteeCount >= 0 ? trusteeCount : "..."}</h2>
-                </div>
-                <div className={styles.accountDetailText}>
-                  <h3>Users</h3>
-                </div>
-              </div>
             </div>
             <div className={styles.accountDetailsVerticalSeparator}></div>
             <div className={styles.moreDetailsViewButtons}>
@@ -117,7 +104,18 @@ function Account(props) {
             <div className={styles.accountDetailsVerticalSeparator}></div>
             <div className={styles.postSection}>
               <div className={styles.postHeading}>POSTS</div>
-              <div className={styles.postsContainer}>NO POSTS AS OF NOW :(</div>
+              <div className={styles.postsContainer}>
+                {postCount > 0
+                  ? postList.map((post) => {
+                      return (
+                        <div className={styles.viewPostInAccount}>
+                          <div>{post.title}</div>
+                          <Button>View Post</Button>
+                        </div>
+                      );
+                    })
+                  : "NO POSTS AS OF NOW :("}
+              </div>
             </div>
           </>
         )}

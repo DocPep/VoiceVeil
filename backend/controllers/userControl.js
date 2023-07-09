@@ -58,7 +58,6 @@ const userControl = {
           chorusList: [],
           chorusTo: 0,
           chorusToList: [],
-          trusteeCount: 0,
           postsCount: 0,
           postList: [],
         };
@@ -133,6 +132,73 @@ const userControl = {
     } catch (error) {
       console.log("Error fetching account data", error);
       res.status(500).send("Error fetching account data");
+    } finally {
+      await client.close();
+      console.log("Disconnected from DB");
+    }
+  },
+  follow: async (req, res) => {
+    await client.connect();
+    console.log("Connected to DB");
+
+    const accountDetails = client.db().collection("Accounts");
+
+    try {
+      const result = await accountDetails.updateOne(
+        { userID: req.body.followed },
+        {
+          $push: { chorusList: req.body.follower },
+          $inc: { chorusVoices: req.body.inc },
+        }
+      );
+      const result2 = await accountDetails.updateOne(
+        { userID: req.body.follower },
+        {
+          $push: { chorusToList: req.body.followed },
+          $inc: { chorusTo: req.body.inc },
+        }
+      );
+      console.log(
+        `${result.modifiedCount + result2.modifiedCount} documents updated`
+      );
+    } catch (error) {
+      console.log(error);
+      res.send(error);
+    } finally {
+      await client.close();
+      console.log("Disconnected from DB");
+    }
+  },
+  unfollow: async (req, res) => {
+    await client.connect();
+    console.log("Connected to DB");
+
+    const accountDetails = client.db().collection("Accounts");
+
+    try {
+      const result = await accountDetails.updateOne(
+        { userID: req.body.unfollowed },
+        {
+          $pull: { chorusList: req.body.unfollower },
+          $inc: { chorusVoices: req.body.inc },
+        }
+      );
+      const result2 = await accountDetails.updateOne(
+        { userID: req.body.unfollower },
+        {
+          $pull: { chorusToList: req.body.unfollowed },
+          $inc: { chorusTo: req.body.inc },
+        }
+      );
+      console.log(
+        `${result.modifiedCount + result2.modifiedCount} documents updated`
+      );
+    } catch (error) {
+      console.log(error);
+      res.send(error);
+    } finally {
+      await client.close();
+      console.log("Disconnected from DB");
     }
   },
 };

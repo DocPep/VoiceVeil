@@ -22,6 +22,7 @@ const postControl = {
     console.log("Connected to DB");
     const postCollection = client.db().collection("Posts");
     const Universe = client.db().collection("Universe");
+    const accounts = client.db().collection("Accounts");
 
     try {
       var universeObject = await Universe.findOne({});
@@ -49,6 +50,18 @@ const postControl = {
         "Post saved to database",
         result.insertedId,
         `Post number ${universeObject.universalPostCounter}`
+      );
+
+      const result2 = await accounts.updateOne(
+        { userID: req.body.createdBy },
+        {
+          $inc: { postsCount: 1 },
+          $push: { postList: { id: result.insertedId, title: req.body.title } },
+        }
+      );
+
+      console.log(
+        `Updated user details. ${result2.modifiedCount} documents updated.`
       );
 
       res.send("Post created successfully :)");
