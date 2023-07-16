@@ -1092,3 +1092,57 @@
   align-items: center;
 }
 
+.settingsBackground {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100vw;
+  height: 88vh;
+  background-color: #030303;
+}
+
+.settingButtons {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background-color: rgb(8, 3, 76) !important;
+  color: rgb(0, 255, 98) !important;
+  width: 15vw !important;
+  margin: 10px !important;
+  font-family: Kanit !important;
+}
+
+.accountSettingsHeading {
+  color: yellowgreen;
+  font-family: Outfit;
+  margin: 15px;
+}
+
+.settingButtons:hover {
+  background-color: rgb(6, 3, 57) !important;
+  color: rgb(6, 205, 82) !important;
+  font-family: Kanit !important;
+}
+
+.accountSettingsSubmitButton {
+  background-color: rgb(164, 236, 20) !important;
+  color: brown !important;
+  width: 12vw !important;
+  margin: 20px !important;
+  font-family: Kanit !important;
+  border: 1px solid yellow !important;
+}
+
+.accountSettingsSubmitButton:hover {
+  background-color: black !important;
+  color: yellow !important;
+  border: 1px solid yellow !important;
+}
+
+.accountSettingsPrompt {
+  font-family: Kanit;
+  color: yellowgreen;
+}
+

@@ -201,6 +201,86 @@ const userControl = {
       console.log("Disconnected from DB");
     }
   },
+  changePassword: async (req, res) => {
+    await client.connect();
+    console.log("Connected to DB");
+
+    const Voices = client.db().collection("Voices");
+
+    try {
+      const oldPassword = req.body.oldPassword;
+      const account = await Voices.findOne({ userID: req.body.username });
+      const actualOldPassword = account.password;
+
+      const matchPassword = await bcrypt.compare(
+        oldPassword,
+        actualOldPassword
+      );
+      if (matchPassword) {
+        const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
+        await Voices.updateOne(
+          { userID: req.body.username },
+          {
+            $set: { password: hashedPassword },
+          }
+        ).catch((error) => {
+          res.send(error);
+        });
+
+        res.send("Password succesfully updated! :)");
+      } else {
+        res.send("Old password entered is incorrect! :(");
+      }
+    } catch (error) {
+      res.send(error);
+      console.log(error);
+    } finally {
+      await client.close();
+      console.log("Disconnected from DB");
+    }
+  },
+  changeUsername: async (req, res) => {
+    await client.connect();
+    console.log("Connected to DB");
+
+    const Voices = client.db().collection("Voices");
+    const accountData = client.db().collection("Accounts");
+
+    try {
+      const usernameCheck = await Voices.findOne({
+        userID: req.body.newUsername,
+      });
+      const validityCheck = await Voices.findOne({ userID: req.body.username });
+
+      if (!validityCheck) {
+        res.send(
+          "Suspicious activity detected, cannot allow to change password for now!!"
+        );
+      } else if (usernameCheck) {
+        res.send("This username is not available! :(");
+      } else {
+        await Voices.updateOne(
+          { userID: req.body.username },
+          {
+            $set: { userID: req.body.newUsername },
+          }
+        );
+        await accountData.updateOne(
+          { userID: req.body.username },
+          {
+            $set: { userID: req.body.newUsername },
+          }
+        );
+        res.send("Username updated succesfully! :)");
+      }
+    } catch (error) {
+      res.send(error);
+      console.error(error);
+    } finally {
+      await client.close();
+      console.log("Disconnected from DB");
+    }
+  },
 };
 
 module.exports = userControl;

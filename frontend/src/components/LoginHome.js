@@ -3,10 +3,12 @@ import NavBar from "./postLogin/NavigationBar";
 import ExplorePage from "./postLogin/Explore";
 import HomeFeed from "./postLogin/HomeFeed";
 import Account from "./postLogin/UserSettings";
-import NotificationsPage from "./postLogin/Notifications";
 import CreatePost from "./postLogin/CreatePost";
 import ViewPost from "./postLogin/ViewPost";
 import ViewUser from "./postLogin/ViewUser";
+import AccountSettings from "./postLogin/AccountSettings";
+import ChangePassword from "./postLogin/ChangePassword";
+import ChangeUsername from "./postLogin/ChangeUsername";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function LoginHome(props) {
@@ -28,13 +30,24 @@ function LoginHome(props) {
             path={"/account/" + username}
             element={<Account username={username} />}
           />
-          <Route path="/notifications" element={<NotificationsPage />} />
           <Route
             path="/create-post"
             element={<CreatePost username={username} />}
           ></Route>
           <Route path="/viewpost/:id" element={<ViewPost />} />
-          <Route path="/user/:id" element={<ViewUser/>} />
+          <Route path="/user/:id" element={<ViewUser />} />
+          <Route
+            path="/:username/account-settings"
+            element={<AccountSettings />}
+          />
+          <Route
+            path="/:username/account-settings/change-password"
+            element={<ChangePassword />}
+          />
+          <Route
+            path="/:username/account-settings/change-username"
+            element={<ChangeUsername />}
+          />
         </Routes>
       </div>
     </Router>

@@ -68,6 +68,10 @@ function Account(props) {
   const viewPost = (id) => {
     window.location.href = "/viewpost/" + id;
   };
+
+  const openAccountSettings = () => {
+    window.location.href="/" + username + '/account-settings'
+  }
   return (
     <div className={styles.accountSettingsBackground}>
       <div className={styles.chorusList} id="chorus-list">
@@ -195,6 +199,9 @@ function Account(props) {
                 onClick={handleViewUserToChorus}
               >
                 View who you're chorus to
+              </Button>
+              <Button className={styles.detailViewButtons} onClick={openAccountSettings}>
+                Account settings
               </Button>
             </div>
             <div className={styles.accountDetailsVerticalSeparator}></div>

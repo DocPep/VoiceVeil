@@ -47,13 +47,6 @@ function NavBar(props) {
       >
         Account
       </Button>
-      <Button
-        component={Link}
-        to="/notifications"
-        className={styles.postLoginNavButtons}
-      >
-        Notifications
-      </Button>
       <div className={styles.accountNameAndLogout}>
         <div className={styles.userNameHolder}>{props.username}</div>
         <div className={styles.smallVerticalSeparator}></div>
