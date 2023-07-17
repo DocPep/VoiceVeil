@@ -23,7 +23,7 @@ const feedbackController = {
 
     try {
       const feedbackCollection = client.db().collection("feedback");
-      await feedbackCollection.insertOne({feedback : req.body.feedback});
+      await feedbackCollection.insertOne({ feedback: req.body.feedback });
       res.send("Added feedback");
       console.log("Added feedback");
     } catch (error) {

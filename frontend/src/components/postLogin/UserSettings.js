@@ -70,8 +70,8 @@ function Account(props) {
   };
 
   const openAccountSettings = () => {
-    window.location.href="/" + username + '/account-settings'
-  }
+    window.location.href = "/" + username + "/account-settings";
+  };
   return (
     <div className={styles.accountSettingsBackground}>
       <div className={styles.chorusList} id="chorus-list">
@@ -200,7 +200,10 @@ function Account(props) {
               >
                 View who you're chorus to
               </Button>
-              <Button className={styles.detailViewButtons} onClick={openAccountSettings}>
+              <Button
+                className={styles.detailViewButtons}
+                onClick={openAccountSettings}
+              >
                 Account settings
               </Button>
             </div>

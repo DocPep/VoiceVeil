@@ -128,7 +128,7 @@ function ViewPost() {
                       <div className={styles.comment}>
                         <div className={styles.mainCommentBody}>
                           <pre className={styles.commenter}>
-                            <div>{com.commenter} says: </div>
+                            <div>{com.commenter}: </div>
                           </pre>
                           <div className={styles.commentBody}>
                             <h3>{com.comment}</h3>
@@ -146,7 +146,7 @@ function ViewPost() {
                                     return (
                                       <div className={styles.replyUnit}>
                                         <pre>
-                                          <h4>{reply.username + ":"}</h4>
+                                          <h3>{reply.username + ":"}</h3>
                                         </pre>
                                         {reply.reply}
                                       </div>
@@ -164,12 +164,18 @@ function ViewPost() {
                           </div>
                           <div>
                             <div className={styles.replyButtons}>
-                              <Button onClick={() => viewReply(com.id)}>
+                              <Button
+                                onClick={() => viewReply(com.id)}
+                                className={styles.accountSettingsSubmitButton2}
+                              >
                                 {commentRepliesShowStates[com.id]
                                   ? "Hide All Replies"
                                   : "Show All Replies"}
                               </Button>
-                              <Button onClick={() => replyToComment(com.id)}>
+                              <Button
+                                onClick={() => replyToComment(com.id)}
+                                className={styles.accountSettingsSubmitButton2}
+                              >
                                 {writeReplyToComment[com.id]
                                   ? "Cancel Reply"
                                   : "Reply to this comment"}
@@ -187,8 +193,26 @@ function ViewPost() {
                                     }}
                                     variant="filled"
                                     id={"reply-comment-field-" + com.id}
+                                    className={styles.commentField}
+                                    inputProps={{
+                                      style: {
+                                        fontFamily: "Kanit",
+                                        color: "yellow",
+                                      },
+                                    }}
+                                    InputLabelProps={{
+                                      style: {
+                                        fontFamily: "Kanit",
+                                        color: "orangered",
+                                      },
+                                    }}
                                   />
-                                  <Button onClick={() => addReply(com.id)}>
+                                  <Button
+                                    onClick={() => addReply(com.id)}
+                                    className={
+                                      styles.accountSettingsSubmitButton2
+                                    }
+                                  >
                                     REPLY
                                   </Button>
                                 </div>
@@ -210,15 +234,26 @@ function ViewPost() {
               label="Add a comment"
               placeholder="Share your thoughts"
               sx={{
-                backgroundColor: "rgb(17, 221, 211)",
+                backgroundColor: "rgb(174, 221, 211)",
                 borderRadius: "4px",
                 flexGrow: 1,
                 width: "50vw",
+                fontFamily: "Kanit",
+              }}
+              inputProps={{ style: { fontFamily: "Kanit", color: "yellow" } }}
+              InputLabelProps={{
+                style: { fontFamily: "Kanit", color: "orangered" },
               }}
               variant="filled"
               id="add-comment-field"
+              className={styles.commentField}
             />
-            <Button onClick={() => addComment()}>POST COMMENT</Button>
+            <Button
+              onClick={() => addComment()}
+              className={styles.accountSettingsSubmitButton2}
+            >
+              POST COMMENT
+            </Button>
           </div>
         </div>
       )}

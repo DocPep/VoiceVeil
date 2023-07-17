@@ -74,13 +74,16 @@ function SignInPage(props) {
         password: password,
       });
       setLogInPrompt(response.data);
-      if(response.data === "Login successful! :)") {
-        localStorage.setItem("token", JSON.stringify({
-          "username": username,
-          "loggedIn": "true"
-        }));
+      if (response.data === "Login successful! :)") {
+        localStorage.setItem(
+          "token",
+          JSON.stringify({
+            username: username,
+            loggedIn: "true",
+          })
+        );
         props.setLoggedIn(true);
-        window.location.href = "/feed"
+        window.location.href = "/feed";
       }
     }
   };
@@ -120,7 +123,10 @@ function SignInPage(props) {
         password: password,
       });
       setRegisterPrompt(response.data);
-      if(response.data === "User succesfully registered! Please login with the registered details :)") {
+      if (
+        response.data ===
+        "User succesfully registered! Please login with the registered details :)"
+      ) {
         setTimeout(showLoginScreen, 3000);
       }
     }
@@ -168,7 +174,7 @@ function SignInPage(props) {
             }}
             InputLabelProps={{
               style: { color: "orange" },
-              shrink: loginUserNameValue!== ""
+              shrink: loginUserNameValue !== "",
             }}
             InputProps={{
               style: { color: "lightgreen" },
@@ -198,7 +204,7 @@ function SignInPage(props) {
             }}
             InputLabelProps={{
               style: { color: "orange" },
-              shrink: loginPassValue!== ""
+              shrink: loginPassValue !== "",
             }}
             InputProps={{
               style: { color: "lightgreen" },
@@ -237,7 +243,7 @@ function SignInPage(props) {
             }}
             InputLabelProps={{
               style: { color: "orange" },
-              shrink: registerUserNameValue!== ""
+              shrink: registerUserNameValue !== "",
             }}
             InputProps={{
               style: { color: "lightgreen" },
@@ -266,7 +272,7 @@ function SignInPage(props) {
             }}
             InputLabelProps={{
               style: { color: "orange" },
-              shrink: registerEmailValue!== ""
+              shrink: registerEmailValue !== "",
             }}
             InputProps={{
               style: { color: "lightgreen" },
@@ -296,7 +302,7 @@ function SignInPage(props) {
             }}
             InputLabelProps={{
               style: { color: "orange" },
-              shrink: registerPassValue !== ""
+              shrink: registerPassValue !== "",
             }}
             InputProps={{
               style: { color: "lightgreen" },
