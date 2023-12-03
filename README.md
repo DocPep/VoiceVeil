@@ -1,17 +1,11 @@
 # VoiceVeil
+## A platform where you can share your opinions freely by hiding behind your username. It encourages free speech and discussion.
+### Features include:
+### Follow your favorite voices!!!
+### Get personalized feed based on people you follow!
+### Share your voices and get followers and engage in discussion with new posts.
+### Discuss in comments with your folloers / people you follow.
+### Search for posts with tags/content of topics you like.
+### Search for users!
 
-### Basic info for now, like the idea I have for this app about what this app should be. A platform where users are anonymous and identifed by their usernames. Users can create a discussion post, where they can talk about stuff they want to talk or opine on, and other users can share their opinions too. All of this is anonymous, hence the name VoiceVeil.
-
-### For now, the features that I want on this app are:
-### 1)Users Sign-up/Login with minimal info(stuff like email is required for login but won't be used for any purpose other than authentication, and other stuff like birthday, phone number, age, gender etc wont be required)
-### 2)Home page
-### 3)Voices page
-### 4)Reactions page
-### 5)Account page
-
-### Home: It's a wall, with the first thing being the ability to opine on something. The rest would probably be posts of your kind/interest but i'm not sure.
-### Voices: Here lie all the posts/voices of other people. The moment you opine on something, it will be visible to other people here.
-### Reactions: Reactions to your opinions, or your opinions on others people posts will be notified.
-### Account: Account settings.
-
-### Basically that's it, this is private so just a goal list for now
+## Experience the app for yourself and leave a feedback about the app.
